@@ -2,3 +2,6 @@
 Repo này ghi lại quá trình tự học back-end theo roadmap trong link: https://roadmap.sh/backend
 
 ## Tác giả: Ngô Bá Tài
+## Chương 1: Internet 
+### 1.1 Internet hoạt động như nào
+
