@@ -39,6 +39,15 @@ Hệ thống tên miền (DNS - Domain Name System): Liên kết các tên miề
 
 **Gói tin, định tuyến và độ ổn định**
 
+### 1.2 Ngôn ngữ lập trình
+Trong chương này sẽ hướng tới việc học 2 ngôn ngữ lập trình là JavaScript và Go
 
+[JavaScript](https://roadmap.sh/javascript)
+
+[Go](https://roadmap.sh/golang)
+
+#### 1.2.1 JavaScript
+
+#### 1.2.2 Go
 
 
