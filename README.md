@@ -46,8 +46,22 @@ Trong chương này sẽ hướng tới việc học 2 ngôn ngữ lập trình 
 
 [Go](https://roadmap.sh/golang)
 
+Note: Phần ghi chú các thuật ngữ chung của 2 ngôn ngữ
+* Phụ thuộc (Dependencies) là các thư viện / module/ package bên ngoài mà một đoạn mã hoặc dự án cần để hoạt động
 #### 1.2.1 JavaScript
+##### a) Quản lý phụ thuộc trong JavaScript
 
+Được quản lý bởi file package.json sử dụng NPM (Node Package Manager) bằng lệnh ```npm init```
+
+Nếu muốn thêm một thư viện thì sử dụng lệnh ```npm install <ten_thu_vien>```
 #### 1.2.2 Go
+##### a) Quản lý phụ thuộc trong Go
+
+Được quản lý bởi file ```go.mod``` sử dụng lênh ```go mod init <tên_module>```, tên_module ở đây là đường dẫn của module
+
+Để thêm 1 thư viện trong Go thì phải import thư viện đó (Thông tin các thư viện của Go nằm ở trang web sau ```pkg.go.dev```) và sử dụng lệnh ```go mod tidy``` để tải các thư viện cần thiết về
+
+![Go mod tidy](md_assets/Go_CaiDatThuVien.png)
+
 
 
