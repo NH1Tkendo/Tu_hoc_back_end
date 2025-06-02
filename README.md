@@ -52,24 +52,35 @@ Note: Phần ghi chú các thuật ngữ chung của 2 ngôn ngữ
 #### 1.2.1 JavaScript
 Note:
 * Nên kết thúc các dòng lệnh bằng dấu ```;```
+* Luôn luôn sử dụng từ khóa ```let``` để khai báo biến
 ##### a) Quản lý phụ thuộc trong JavaScript
 
 Được quản lý bởi file package.json sử dụng NPM (Node Package Manager) bằng lệnh ```npm init```
 
 Nếu muốn thêm một thư viện thì sử dụng lệnh ```npm install <ten_thu_vien>```
 ##### b) Khai báo biến
-Khai báo biến bằng cách sử dụng từ khóa ```let``` và ngay sau đó là tên biến
+Khai báo biến bằng cách sử dụng từ khóa ```let``` hoặc ```var``` và ngay sau đó là tên biến
 
 Ví dụ:
 ```
 let myName;
-let myAge;
+var myAge;
 ```
 
-Khởi tạo giá trị
+**Khởi tạo giá trị**
 ```
 myName = "Chris";
 myAge = 37;
+```
+
+**Một số điểm khác nhau giữa ```var``` và ```let```:**
+* Hoisting chỉ hoạt động với var
+* Có thể khai báo biến cùng một biến nhiều lần nếu dùng var
+
+**Ghi đè biến**
+```
+myName = "Bob";
+myAge = 40;
 ```
 #### 1.2.2 Go
 ##### a) Quản lý phụ thuộc trong Go
