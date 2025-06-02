@@ -48,12 +48,29 @@ Trong chương này sẽ hướng tới việc học 2 ngôn ngữ lập trình 
 
 Note: Phần ghi chú các thuật ngữ chung của 2 ngôn ngữ
 * Phụ thuộc (Dependencies) là các thư viện / module/ package bên ngoài mà một đoạn mã hoặc dự án cần để hoạt động
+* Biến là 1 kho chứa cho giá trị,
 #### 1.2.1 JavaScript
+Note:
+* Nên kết thúc các dòng lệnh bằng dấu ```;```
 ##### a) Quản lý phụ thuộc trong JavaScript
 
 Được quản lý bởi file package.json sử dụng NPM (Node Package Manager) bằng lệnh ```npm init```
 
 Nếu muốn thêm một thư viện thì sử dụng lệnh ```npm install <ten_thu_vien>```
+##### b) Khai báo biến
+Khai báo biến bằng cách sử dụng từ khóa ```let``` và ngay sau đó là tên biến
+
+Ví dụ:
+```
+let myName;
+let myAge;
+```
+
+Khởi tạo giá trị
+```
+myName = "Chris";
+myAge = 37;
+```
 #### 1.2.2 Go
 ##### a) Quản lý phụ thuộc trong Go
 
