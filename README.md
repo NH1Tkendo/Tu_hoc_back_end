@@ -91,5 +91,21 @@ myAge = 40;
 
 ![Go mod tidy](md_assets/Go_CaiDatThuVien.png)
 
-
+##### b) Cơ bản về Go
+* Chương trình bắt đầu ở file có khai báo ```package main```
+* Có 2 kiểu khai báo các gói:
+```import "fmt"```
+```
+import (
+	"fmt"
+	"math"
+)
+```
+* Cú pháp khai báo hàm, sử dụng từ khóa ```func```, ngoài ra còn có thể quy định tham số và kiểu dữ liệu theo cú pháp ```<ten_bien> <kieu_du_lieu>``` hoặc ```<ten_bien>, <ten_bien> <kieu_du_lieu>``` nếu cả 2 tham số có cùng kiểu dữ liệu. Nếu hàm có trả về kết quả thì phải quy định kiểu trả về ngay sau khi khai báo tên biến
+Ví dụ:
+```
+func add(x int, y int) int {
+	return x + y
+}
+```
 
