@@ -108,4 +108,12 @@ func add(x int, y int) int {
 	return x + y
 }
 ```
+* Giá trị trả về được khai báo sẵn: Giá trị trả về của Go có thể được khai báo sẵn (Tham số được quy định ở đầu hàm).
+```
+func split(sum int) (x, y int){
+    x = sum * 4 / 9
+    y = sum - x
+    return
+}
+```
 
