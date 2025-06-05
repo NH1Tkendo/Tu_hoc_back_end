@@ -76,12 +76,17 @@ myAge = 37;
 **Một số điểm khác nhau giữa ```var``` và ```let```:**
 * Hoisting chỉ hoạt động với var
 * Có thể khai báo biến cùng một biến nhiều lần nếu dùng var
+* ```let``` và ```var``` đều có phạm vi giống nhau
+* Khai báo bằng let không tạo thuộc tính trên globalThis khi được khai báo ở cấp cao nhất của một script
+* Khai báo bằng let không tạo thuộc tính trên globalThis khi được khai báo ở cấp cao nhất của một script.
 
 **Ghi đè biến**
 ```
 myName = "Bob";
 myAge = 40;
 ```
+
+* Một số đặc điểm về const: const là một thùng chứa dữ liệu bất biến trong quá trình thực thi chương trình
 #### 1.2.2 Go
 ##### a) Quản lý phụ thuộc trong Go
 
@@ -114,6 +119,37 @@ func split(sum int) (x, y int){
     x = sum * 4 / 9
     y = sum - x
     return
+}
+```
+* Khai báo biến
+Khai báo theo cú pháp ```var <ten_bien> <kieu_du_lieu>```
+
+Ví dụ:
+```
+var c, python, java bool
+
+func main() {
+	var i int
+	fmt.Println(i, c, python, java)
+}
+```
+
+Ví dụ khai báo biến với giá trị mặc định:
+```
+var i, j int = 1, 2
+```
+
+**Lưu ý**: bên trong một hàm có thể dùng cú pháp ```:=``` để thay thế cho từ khóa ```var``` với kiểu dữ liệu không xác định
+
+Ví dụ:
+
+```
+func main() {
+	var i, j int = 1, 2
+	k := 3
+	c, python, java := true, false, "no!"
+
+	fmt.Println(i, j, k, c, python, java)
 }
 ```
 
