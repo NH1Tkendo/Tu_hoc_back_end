@@ -87,6 +87,19 @@ myAge = 40;
 ```
 
 * Một số đặc điểm về const: const là một thùng chứa dữ liệu bất biến trong quá trình thực thi chương trình
+##### c) Hoisting
+Là quá trình mà trình thông dịch đưa các khai báo hàm, biến, lớp, hoặc import lên đầu scope của chúng trước khi thực thi chương trình
+##### d) Quy tắc đặt tên biến
+* Têm biến chỉ có thể chứa ký tự chữ số (a-z, A-Z, 0-9), dấu ```$``` và dấu ```_```
+* Tên biến không thể bắt đầu bằng số
+* Tên biến không thể chứa khoảng trắng
+* Không được dùng từ khóa làm tên biến
+
+Gợi ý đặt tên biến:
+* Đặt tên biến đại diện cho chức năng của nó, ví dụ: ```username```
+* Đừng đặt dài quá
+* Dùng camel case (Viết hoa các chữ cái đầu tiên của từng từ trừ chữ đầu tiên) cho tên biến và screaming snake case (Viết hoa toàn bộ chữ cái và thay các khoảng trắng bằng dấu "_") cho hằng số
+* 
 #### 1.2.2 Go
 ##### a) Quản lý phụ thuộc trong Go
 
