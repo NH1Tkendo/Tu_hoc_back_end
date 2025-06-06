@@ -160,8 +160,11 @@ Các phương thức xử lý chuỗi:
 
 * **undefined**: kiểu dữ liệu nguyên thủy trong JavaScript. Khi một biến được khai báo nhưng chưa được khởi tạo hoặc được gán giá trị, khi đó nó sẽ được lưu trữ là ```undefined```.
 
-Lưu ý: undefined là 1 placeholder tạm thời cho tới khi một biến được gán giá trị
-nên KHÔNG bao giờ được dùng ```a = undefined;```
+Lưu ý: undefined là 1 placeholder tạm thời cho tới khi một biến được gán giá trị nên KHÔNG bao giờ được dùng ```a = undefined;```
+
+* **Null**: là một loại giá trị đặc biệt, đại diện cho sự "vắng mặt" của bất kỳ dữ liệu của đối tượng nào.
+
+Null không phải là Undefined, khi một dữ liệu được khai báo nhưng không được gán giá trị thì đó là undefined, nhưng khi mộ biến được khai báo và gán null thì đó là null
 #### 1.2.2 Go
 ##### a) Quản lý phụ thuộc trong Go
 
