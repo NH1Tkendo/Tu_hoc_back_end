@@ -49,6 +49,7 @@ Trong chương này sẽ hướng tới việc học 2 ngôn ngữ lập trình 
 Note: Phần ghi chú các thuật ngữ chung của 2 ngôn ngữ
 * Phụ thuộc (Dependencies) là các thư viện / module/ package bên ngoài mà một đoạn mã hoặc dự án cần để hoạt động
 * Biến là 1 kho chứa cho giá trị,
+* Các đối tượng và hàm đều là biến
 #### 1.2.1 JavaScript
 Note:
 * Nên kết thúc các dòng lệnh bằng dấu ```;```
@@ -99,7 +100,59 @@ Gợi ý đặt tên biến:
 * Đặt tên biến đại diện cho chức năng của nó, ví dụ: ```username```
 * Đừng đặt dài quá
 * Dùng camel case (Viết hoa các chữ cái đầu tiên của từng từ trừ chữ đầu tiên) cho tên biến và screaming snake case (Viết hoa toàn bộ chữ cái và thay các khoảng trắng bằng dấu "_") cho hằng số
-* 
+
+##### e) Phạm vi (Scope)
+Scope quyết định khả năng truy cập của các biến, đối tượng và hàm trong các phần khác nhau của đoạn mã
+
+JavaScript có 3 loại phạm vi:
+* Phạm vi toàn cục: Là phạm vi bao bọc toàn bộ một tập tin dự án, một biến được khai báo bên ngoài một hàm sẽ có phạm vi toàn cục, một biến có phạm vi toàn cục có thể được truy cập từ bất kì đâu trong dự án
+* Phạm vi khối: là phạm vi được bao bọc trong dấu ```{}```, biến được khai báo trong phạm vi khối không thể được truy cập bởi phần tử bên ngoài. Các biến được khai báo bằng ```var``` không thể có phạm vi khối
+  
+  Ví dụ:
+  ```
+  {
+  let x = 2;
+  }
+  ```
+* Phạm vi hàm: Là phạm vi nằm trong một hàm, bắt đầu từ đoạn khai báo tên hàm cho tới kết thúc của hàm đó. Tương tự như phạm vi khối, các biến được khai báo trong phạm vi hàm không thể được truy cập từ bên ngoài
+  Ví dụ:
+  ```
+  function myFunction() {
+  	var carName = "Volvo";   // Function Scope
+  }
+  ```
+
+Nếu gán giá trị cho một biến chưa được khai báo, nó sẽ tự động trở thành biến toàn cục
+```
+let carName;
+myFunction();
+
+// code here can use carName
+
+function myFunction() {
+  carName = "Volvo";
+}
+```
+##### f) Kiểu dữ liệu
+JavaScript là một ngôn ngữ lập trình động (là một loại ngôn ngữ lập trình mà kiểu dữ liệu của biến có thể thay đổi trong quá trình thực thi chương trình) với các kiểu dữ liệu động
+
+**Các kiểu dữ liệu nguyên thủy** : Các kiểu dữ liệu được biểu diễn trực tiếp ở cấp thấp nhất của ngôn ngữ
+
+Lưu ý: Toàn bộ các kiểu dữ liệu nguyên thủy (trừ null) có thể được kiểm tra kiểu dữ liệu bằng toán tử ```typeof```. ```typeof null``` trả về **Objects** nên phải dùng so sánh tuyệt đối ```=== null``` để kiểm tra 
+
+* **String (kiểu chuỗi)**: Đại diện cho chữ và được được mã hóa dưới dạng một chuỗi các giá trị số nguyên không dấu 16 bit, đại diện cho các đơn vị mã UTF-16
+
+Các chuỗi trong JavaScript là bất biến (một khi đã tạo thì không thể thay đổi)
+
+String có thể được tạo ra bằng một chuỗi các ký tự, hoặc như một đối tượng sử dụng hàm khởi tạo ```String()```
+
+Ví dụ:
+```
+const string3 = `Yet another string primitive`;
+const string4 = new String("A String object");
+```
+
+Các chuỗi ký tự có thể được định nghĩa bằng cách dùng các dấu như ```""```, ```''``` và ``` `` ```
 #### 1.2.2 Go
 ##### a) Quản lý phụ thuộc trong Go
 
