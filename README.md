@@ -54,6 +54,7 @@ Note: Phần ghi chú các thuật ngữ chung của 2 ngôn ngữ
 Note:
 * Nên kết thúc các dòng lệnh bằng dấu ```;```
 * Luôn luôn sử dụng từ khóa ```let``` để khai báo biến
+* Khi khai báo một biến thì javascript sẽ tạo chỗ cho nó trong bộ nhớ mặc dù chưa thực thi chương trình, sau đó để 1 placeholder cho biến đó với nội dung là undefined
 ##### a) Quản lý phụ thuộc trong JavaScript
 
 Được quản lý bởi file package.json sử dụng NPM (Node Package Manager) bằng lệnh ```npm init```
@@ -153,6 +154,14 @@ const string4 = new String("A String object");
 ```
 
 Các chuỗi ký tự có thể được định nghĩa bằng cách dùng các dấu như ```""```, ```''``` và ``` `` ```
+
+Các phương thức xử lý chuỗi:
+```https://developer.mozilla.org/enUS/docs/Web/JavaScript/Reference/Global_Objects/String```
+
+* **undefined**: kiểu dữ liệu nguyên thủy trong JavaScript. Khi một biến được khai báo nhưng chưa được khởi tạo hoặc được gán giá trị, khi đó nó sẽ được lưu trữ là ```undefined```.
+
+Lưu ý: undefined là 1 placeholder tạm thời cho tới khi một biến được gán giá trị
+nên KHÔNG bao giờ được dùng ```a = undefined;```
 #### 1.2.2 Go
 ##### a) Quản lý phụ thuộc trong Go
 
