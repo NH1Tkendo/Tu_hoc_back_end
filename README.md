@@ -167,7 +167,7 @@ Lưu ý: undefined là 1 placeholder tạm thời cho tới khi một biến đ�
 Null không phải là Undefined, khi một dữ liệu được khai báo nhưng không được gán giá trị thì đó là undefined, nhưng khi mộ biến được khai báo và gán null thì đó là null
 
 * **Symbol**: là một kiểu dữ liệu nguyên thủy mới được thêm vào, symbol không có dạng kí tự
-  Khai báo biến có kiểu dữ liệu symbol: ```let s = Symbol('foo');```, nếu muốn chia sẻ
+  Khai báo biến có kiểu dữ liệu symbol: ```let s = Symbol('foo');```, nếu muốn chia sẻ các Symbol thì sử dụng ```Symbol.for()``` Ví dụ: ```let ssn = Symbol.for('ssn')```. Phương thức Symbol.for() đầu tiên tìm kiếm những symbol với khóa ssn trong **global symbol registry**, nếu tồn tại giá trị thì sẽ trả về còn không thì tạo symbol mới
   
   Symbol tạo ra giá trị khác nhau mỗi lần gọi ```console.log(Symbol() === Symbol()); // false```
 
@@ -176,7 +176,57 @@ Null không phải là Undefined, khi một dữ liệu được khai báo nhưn
   Dùng console.log sẽ gọi phương thức toString() để gọi symbol ra ```console.log(firstName); // Symbol(first name)```
 
   Vì Symbol là kiểu dữ liệu nguyên thủy nên có dùng hàm ```type of``` để kiểm tra ```console.log(typeof firstName);```
-  
+
+**Công dụng của symbol**
+* Sử dụng symbol cho giá trị duy nhất:
+  Ví dụ: Các trạng thái của một tác vụ như open, in progress, completed, canceled... Thì có thể sử dụng symbol thay vì String
+  ```
+  let statuses = {
+    OPEN: Symbol('Open'),
+    IN_PROGRESS: Symbol('In progress'),
+    COMPLETED: Symbol('Completed'),
+    HOLD: Symbol('On hold'),
+    CANCELED: Symbol('Canceled')
+  };
+  // complete a task
+  task.setStatus(statuses.COMPLETED);
+  ```
+* Sử dụng symbol như tên thuộc tính:
+```
+let statuses = {
+    OPEN: Symbol('open'),
+    IN_PROGRESS: Symbol('in-progress'),
+    COMPLETE: Symbol('complete'),
+    HOLD: Symbol('hold'),
+    CANCELED: Symbol('canceled')
+}
+
+let status = Symbol("status");
+
+let task = {
+    status: statuses.OPEN,
+    desciption: "test"
+}
+
+console.log(task)
+```
+
+Để lấy các thuộc tính enumerable của một đối tượng, bạn sử dụng phương thức ```Object.keys()```, ví dụ: ```console.log(Object.keys(task)); // ["description"]```
+
+Để lấy thuộc tính của toàn bộ đối tượng, sử dụng ```Object.getOwnPropertyNames()```
+
+Để lấy toàn bộ symbols của đối tượng, bạn sử dụng hàm ```Object.getOwnPropertySymbols()```
+
+**Well-known symbols**(Ký hiệu nổi tiếng): ES6 cung cấp các symbol được định nghĩa sẵn, gọi là well-known symbols (các symbol nổi tiếng). Các well-known symbol đại diện cho những hành vi phổ biến trong JavaScript. Mỗi well-known symbol là một thuộc tính tĩnh (static property) của đối tượng Symbol.
+
+[Xem các Well-known symbols ở đây](https://www.javascripttutorial.net/symbol/)
+
+* **Boolean**:Chỉ có 2 giá trị True hoặc False, thường được dùng trong kiểm thử các điều kiện, như là ```if...else``` và ```while```...
+  Các toán tử được xác định là false: undefined, null, 0, -0, NaN, 0n, ""
+
+  Các toán tử được xác định là true: các numbers, BigInts, strings, Symbols, all Objects
+
+  Chuyển một giá trị sang boolean: Sử dụng toán tử ```!!```, hoặc hàm Boolean() 
 #### 1.2.2 Go
 ##### a) Quản lý phụ thuộc trong Go
 
