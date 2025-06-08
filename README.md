@@ -226,7 +226,64 @@ console.log(task)
 
   Các toán tử được xác định là true: các numbers, BigInts, strings, Symbols, all Objects
 
-  Chuyển một giá trị sang boolean: Sử dụng toán tử ```!!```, hoặc hàm Boolean() 
+  Chuyển một giá trị sang boolean: Sử dụng toán tử ```!!```, hoặc hàm Boolean()
+* **number**: kiểu dữ liệu ```number``` trong JavaScript đại diện cho số chấm động (floating - point numbers)
+  Hàm khởi tạo ```Number``` cung cấp nhiều phương thức để làm việc với numbers, và các kiểu dữ liệu khác có thể được chuyển đổi thành numbers sử dụng hàm ```Numbers()```
+  ```
+  let num1 = 255; // integer
+  let num2 = 255.0; // floating-point number with no fractional part
+  let num3 = 0xff; // hexadecimal notation
+  let num4 = 0b11111111; // binary notation
+  let num5 = 0.255e3; // exponential notation
+
+  console.log(num1 === num2); // true
+  console.log(num1 === num3); // true
+  console.log(num1 === num4); // true
+  console.log(num1 === num5); // true
+  ```
+* **BigInt**: được tạo ra bằng cách thêm ```n``` vào đuôi của một chuỗi số nguyên bất kỳ, hoặc sử dụng hàm ```BigInt()``` và truyền đối số là số nguyên hoặc chuỗi
+  ```
+  const previouslyMaxSafeInteger = 9007199254740991n;
+
+	const alsoHuge = BigInt(9007199254740991);
+	// 9007199254740991n
+	
+	const hugeString = BigInt("9007199254740991");
+	// 9007199254740991n
+	
+	const hugeHex = BigInt("0x1fffffffffffff");
+	// 9007199254740991n
+	
+	const hugeOctal = BigInt("0o377777777777777777");
+	// 9007199254740991n
+	
+	const hugeBin = BigInt(
+	  "0b11111111111111111111111111111111111111111111111111111",
+	);
+	```
+Tuy các giá trị ```Bigint``` khá giống với ```Number```, nhưng có một số khác biệt chính giữa 2 kiểu dữ liệu này, ```BigInt``` không thể được sử dụng với các phương thức trong đối tượng ```Math``` và không thể được dùng với ```Number``` trong các phép toán, 
+
+BigInt có thể thực hiện các phép toán học nhưng phải đảm bảo các toán hạng đều cùng 1 kiểu dữ liệu
+* Arithmetic operators: +, -, *, /, %, **
+* Bitwise operators: >>, <<, &, |, ^, ~
+* Unary negation (-)
+* Increment/decrement: ++, --
+
+Các phép so sánh trả về boolean cho phép trộn lẫn kiểu numbers và BigInts
+* Relational operators and equality operators: >, <, >=, <=, ==, !=, ===, !==
+* Logical operators only rely on the truthiness of operands
+```
+const previousMaxSafe = BigInt(Number.MAX_SAFE_INTEGER); // 9007199254740991n
+const maxPlusOne = previousMaxSafe + 1n; // 9007199254740992n
+const theFuture = previousMaxSafe + 2n; // 9007199254740993n, this works now!
+const prod = previousMaxSafe * 2n; // 18014398509481982n
+const diff = prod - 10n; // 18014398509481972n
+const mod = prod % 10n; // 2n
+const bigN = 2n ** 54n; // 18014398509481984n
+bigN * -1n; // -18014398509481984n
+const expected = 4n / 2n; // 2n
+const truncated = 5n / 2n; // 2n, not 2.5n
+```
 #### 1.2.2 Go
 ##### a) Quản lý phụ thuộc trong Go
 
