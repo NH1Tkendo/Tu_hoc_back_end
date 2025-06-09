@@ -473,7 +473,22 @@ const myObj = { a: 5, b: 12 };
 delete myObj.a;
 console.log("a" in myObj); // false
 ```
+* **Định nghĩa phương thức**
+  Giống như phương thức bình thường
+```
+objectName.methodName = functionName;
 
+const myObj = {
+  myMethod: function (params) {
+    // do something
+  },
+
+  // this works too!
+  myOtherMethod(params) {
+    // do something else
+  },
+};
+```
 #### 1.2.2 Go
 ##### a) Quản lý phụ thuộc trong Go
 
