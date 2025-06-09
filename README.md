@@ -284,6 +284,196 @@ bigN * -1n; // -18014398509481984n
 const expected = 4n / 2n; // 2n
 const truncated = 5n / 2n; // 2n, not 2.5n
 ```
+##### g) Toán tử typeof
+```typeOf``` được dùng để tìm kiểu dữ liệu của một biến trong JavaScript. Nó trả về một chuỗi tương ứng với kiểu của giá trị được truyền vào. 
+
+```
+console.log(typeof 42);
+// Expected output: "number"
+
+console.log(typeof "blubber");
+// Expected output: "string"
+
+console.log(typeof true);
+// Expected output: "boolean"
+
+console.log(typeof undeclaredVariable);
+// Expected output: "undefined"
+```
+Cú pháp ```typeof operand```, output là kiểu dữ liệu tương ứng với giá trị được truyền vào, riêng ```null``` thì trả về ```Object```(trong các phiên bản đầu tiên của JS, các giá trị được biểu diễn theo cặp tag và value, các đối tượng có tag là 0 và khi đó null được biểu diễn bằng con trỏ NULL có giá trị là ```0x00```, nên trình JS hiểu null là một đối tượng)
+
+**Lưu ý**:
+Tất cả các hàm khởi tạo được gọi với từ khóa ```new``` sẽ trả về giá trị không nguyên thủy, ngoại lệ duy nhất là ```Function```.
+
+Ví dụ:
+```
+const str = new String("String");
+const num = new Number(100);
+
+typeof str; // "object"
+typeof num; // "object"
+
+const func = new Function();
+
+typeof func; // "function"
+```
+
+```typeof``` có độ ưu tiên hành động cao hơn các toán tử nhị phân, do vậy cần phải bọc các 
+
+```
+function type(value) {
+  if (value === null) {
+    return "null";
+  }
+  const baseType = typeof value;
+  // Primitive types
+  if (!["object", "function"].includes(baseType)) {
+    return baseType;
+  }
+
+  // Symbol.toStringTag often specifies the "display name" of the
+  // object's class. It's used in Object.prototype.toString().
+  const tag = value[Symbol.toStringTag];
+  if (typeof tag === "string") {
+    return tag;
+  }
+
+  // If it's a function whose source code starts with the "class" keyword
+  if (
+    baseType === "function" &&
+    Function.prototype.toString.call(value).startsWith("class")
+  ) {
+    return "class";
+  }
+
+  // The name of the constructor; for example `Array`, `GeneratorFunction`,
+  // `Number`, `String`, `Boolean` or `MyCustomClass`
+  const className = value.constructor.name;
+  if (typeof className === "string" && className !== "") {
+    return className;
+  }
+
+  // At this point there's no robust way to get the type of value,
+  // so we use the base implementation.
+  return baseType;
+}
+```
+##### h) Đối tượng (object)
+Là cấu trúc dữ liệu cho phép chùng ta có các cặp key-value, để chúng ta có các key độc nhất và mỗi key được liên kết với một giá trị có thể thuộc bất kì kiểu dữ liệu nào trong JS. Ví dụ: một cây bút có nhiều thuộc tính như màu sắc, thiết kế, chất liệu mà nó được làm từ... Tương tự như vậy, các đối tượng JS có thể có các thuộc tính để điều chỉnh hành vi của chúng.
+
+* **Tạo đối tượng mới**
+  Có nhiều cách để tạo một đối tượng như sử dụng ```object initializer```, hoặc sử dụng hàm khởi tạo và sau đó tạo một đối tượng bằng cách sử dụng toán tử ```new```
+
+**Sử dụng object initializers**
+```
+const a = {
+    a: 221,
+    23: "Hello",
+    45: 12313n
+}
+```
+
+```
+const myHonda = {
+  color: "red",
+  wheels: 4,
+  engine: { cylinders: 4, size: 2.2 },
+};
+```
+Mỗi tên thuộc tính trước dấu ```:``` là một định danh (identifier), nó có thể là một biến, chữ số hoặc là một chuỗi. Các giá trị sau dấu ```:``` là các biểu thức được gán vào tên thuộc tính. 
+
+**Sử dụng hàm khởi tạo**
+Định nghĩa kiểu đối tượng bằng cách viết một hàm khởi tạo, sau đó tạo thể hiện của đối tượng bằng cách dùng new dùng ```new```
+
+```
+function Car(make, model, year) {
+  this.make = make;
+  this.model = model;
+  this.year = year;
+}
+
+const myCar = new Car("Eagle", "Talon TSi", 1993);
+```
+**Sử dụng phương thức Object.create()**
+Phương thức này rất hữu dụng, vì nó cho phép bạn chọn mẫu đối tượng cho đối tượng bạn muốn tạo mà khồn cần một hàm khởi tạo
+```
+// Animal properties and method encapsulation
+const Animal = {
+  type: "Invertebrates", // Default value of properties
+  displayType() {
+    // Method which will display type of Animal
+    console.log(this.type);
+  },
+};
+
+// Create new animal type called animal1
+const animal1 = Object.create(Animal);
+animal1.displayType(); // Logs: Invertebrates
+
+// Create new animal type called fish
+const fish = Object.create(Animal);
+fish.type = "Fishes";
+fish.displayType(); // Logs: Fishes
+```
+
+**Truy cập vào các thuộc tính của đối tượng**
+Ví dụ bên dưới tạo một đối tượng có tên là ```myCar```, với các thuộc tính được đặt tên lần lượt là ```make```, ```model``` và ```year``` với các giá trị tương ứng là ```"Ford"```, ```"Mustang"```, ```1969```.
+```
+const myCar = {
+  make: "Ford",
+  model: "Mustang",
+  year: 1969,
+};
+```
+
+Có 2 cách để truy cập các thuộc tính là sử dụng dot natation và bracket natation
+```
+// Dot notation
+myCar.make = "Ford";
+myCar.model = "Mustang";
+myCar.year = 1969;
+
+// Bracket notation
+myCar["make"] = "Ford";
+myCar["model"] = "Mustang";
+myCar["year"] = 1969;
+```
+* **Duyệt các thuộc tính**
+  Có 3 cách chính, sử dụng vòng lặp ```for...in``` (Phương thức này di chuyển qua tất cả các chuỗi có thể duyệt của một đối tượng và cũng như các biểu thức đi kèm với nó), ```Object.keys()```(Phương thức này chỉ trả về một mảng với các thuộc tính của đối tượng), ```Object.getOwnPropertyNames()``` (Phương thứ này trả về một mảng chứa tất cả các tên thuộc tính, dù cho chings có duyệt được hay không)
+
+```
+function showProps(obj, objName) {
+  let result = "";
+  Object.keys(obj).forEach((i) => {
+    result += `${objName}.${i} = ${obj[i]}\n`;
+  });
+  console.log(result);
+}
+```
+```
+function listAllProperties(myObj) {
+  let objectToInspect = myObj;
+  let result = [];
+
+  while (objectToInspect !== null) {
+    result = result.concat(Object.getOwnPropertyNames(objectToInspect));
+    objectToInspect = Object.getPrototypeOf(objectToInspect);
+  }
+
+  return result;
+}
+```
+* **Xóa thuộc tính**
+  Sử dụng toán tử ```delete```
+```
+// Creates a new object, myObj, with two properties, a and b.
+const myObj = { a: 5, b: 12 };
+
+// Removes the a property, leaving myObj with only the b property.
+delete myObj.a;
+console.log("a" in myObj); // false
+```
+
 #### 1.2.2 Go
 ##### a) Quản lý phụ thuộc trong Go
 
@@ -292,6 +482,8 @@ const truncated = 5n / 2n; // 2n, not 2.5n
 Để thêm 1 thư viện trong Go thì phải import thư viện đó (Thông tin các thư viện của Go nằm ở trang web sau ```pkg.go.dev```) và sử dụng lệnh ```go mod tidy``` để tải các thư viện cần thiết về
 
 ![Go mod tidy](md_assets/Go_CaiDatThuVien.png)
+
+
 
 ##### b) Cơ bản về Go
 * Chương trình bắt đầu ở file có khai báo ```package main```
