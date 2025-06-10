@@ -489,6 +489,39 @@ const myObj = {
   },
 };
 ```
+##### i) Đối tượng được tích hợp sẵn
+Là những đối tượng được lập trình sẵn trong ngôn ngữ để định nghĩa chính nó. Có rất nhiều đối tượng như vậy trong JS, toàn bộ đều có thể tru cập ở phạm vi toàn cục, VD: ```Number, Math, Date, String, Error, Function, Boolean```
+
+Lưu ý: Đối tượng được tích hợp sẵn (global objects) khác với đối tượng toàn cục (global object)
+
+Đối tượng toàn cục có thể được truy cập sử dụng toán tử this trong phạm vi toàn cục. Thật ra, phạm vi toàn cục chứ tất cả các thuộc tính của đối tượng toàn cục (bao gồm những thuộc tính được kế thừa). Các đối tuongj khác trong phạm vi toàn cục hoặc là được tạo ra bởi chính người dùng hoặc là được cung cấp mặc định bởi ứng dụng (host objects).
+
+**Phân loại các đối tượng được tính hợp sẵn**
+* Theo thuộc tính: Những thuộc tính toàn cục này trả về một giá trị đơn giản. Chúng không có thuộc tính hay phương thức. Ví dụ: ```globalThis, Infinity...```
+* Theo phương thức: Những phương thức toàn cục (Phương thức được gọi theo kiểu toàn cục) trực tiếp trả về kết quả. Ví dụ: ```eval(), isNaN()...```
+* Theo các đối tượng cơ bản: đại diện cho kiến trúc căn bản của ngôn ngữ. Ví dụ: Các kiểu dữ liệu
+* Các đối tượng thông báo lỗi: Đối tượng lỗi là một lại đối tượng căn bản đặc biệt. Chúng bao gồm kiểu ```Error``` cơ bản, cũng như một vài lỗi được thiết lập cụ thể như ```RangeError, SyntaxError, TypeError```.
+* Theo chữ số và ngày: Đây là những đối tượng căn bản đại diện cho chữ số, ngày và các phép toán học. Ví dụ: ```Date, Math, Number...```
+* Theo đối tượng xử lý văn bản (RegExp): Những đối tượng đại diện cho chuỗi và cung cấp khả năng xử lý chúng
+* Theo các bộ bộ sưu tập có thứ tự: những đối tượng nyaf địa diện cho bộ sưu tập bao gồm những dữ liệu được sắp xếp bằng các chỉ mục. Bao gồm các mảng (arrays) và các cấu trúc giống array (```Int32Array, Float32Array...```)
+* Các bộ sưu tập sử dụng khóa: Những đối tượng đại diện cho bộ sưu tập sử sụng khóa (```Map, Set...```)
+* Theo các dữ liệu được cấu trúc: đại diện và tương tác với dữ liệu được cấu trúc (```JSON...```)
+* Theo quản lý bộ nhớ
+* Theo điều khiển các đối tượng trừu tượng: các đối tượng này có thể giúp cấu trúc mã nguồn, đồng bộ hóa mã nguồn mà không cần dùng các hàm Callbacks lồng nhau. Ví dụ: ```Iterator, Promise, AsyncFunction...```
+Đọc thêm về build-in objects tại đây: (Build-in Object)[https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects]
+##### j) Kế thừa nguyên mẫu (Prototypal Inheritance)
+Là một tính năng trong JS được dùng để thêm các phương thức và thuộc tính vào đối tượng. Là một phương thức mà đối tượng các thể kế thừa các thuộc tính và phương thức của một đối tượng khác. Để làm được điều này, chúng ta cần dùng ```Object.getPrototypeOf và Object.setPrototypeOf```.
+
+Kế thừa là việc truyền các tính chất từ một đối tượng cha sang một đối tượng con để đối tượng này có thể tái sử dụng và xây dựng từ các tính năng sẵn có của đối tượng đã tồn tại. JS kết thừa bằng cách sử dụng các đối tượng
+
+Mỗi đối tượng cha được gọi là đối tượng nguyên mẫu, các đối tượng nguyên mẫu lại có thêm các đối tượng nguyên mẫu của nó, cho tới khi ```null`` là nguyên mẫu của nó. ```Null``` không có nguyên mẫu và nó được coi như là điểm cuỗi của các **prototype chain**.
+
+**Kế thừa với prototype chain**
+* Kế thừa các thuộc tính
+  Khi truy cập một thuộc tính của một đối tượng, thuộc tính này sẽ không chỉ được tìm trong đối tượng đó mà còn được tìm trong các đối tượng nguyên mẫu của nó, cho tới khi tìm được tên thuộc tính đó hoặc tới cuỗi chuỗi nguyên mẫu.
+
+Lưu ý: khi hàm được kế thừa được thực thi, giá trị của ```this``` sẽ được trỏ về đối tượng kế thừa, không trỏ về đối tượng nguyễn mẫu nơi mà hàm à thuộc tính riêng
+Ví dụ: trong file ```testInheritance.js```
 #### 1.2.2 Go
 ##### a) Quản lý phụ thuộc trong Go
 
