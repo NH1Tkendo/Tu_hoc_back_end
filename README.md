@@ -522,6 +522,95 @@ Mỗi đối tượng cha được gọi là đối tượng nguyên mẫu, các
 
 Lưu ý: khi hàm được kế thừa được thực thi, giá trị của ```this``` sẽ được trỏ về đối tượng kế thừa, không trỏ về đối tượng nguyễn mẫu nơi mà hàm à thuộc tính riêng
 Ví dụ: trong file ```testInheritance.js```
+
+**Hàm khởi tạo**: Thê mạnh của hàm khởi tạo là chúng ta có thể tái sử dụng một tập các thuộc tính nếu chúng nên xuất hiện trong tất cả thể hiện, đặc biệt là methods.
+
+Một cách ngây thơ để tạo ra các đối tượng có hàm ```getValue```. 
+```
+const boxes = [
+  { value: 1, getValue() { return this.value; } },
+  { value: 2, getValue() { return this.value; } },
+  { value: 3, getValue() { return this.value; } },
+];
+```
+Điều này là không nên thì mỗi thể hiện có các thuộc tính phương thức của riêng nó cho phép làm điều tương tự. Thay vào đó, chúng ta có thể chuyển hàm ```getValue``` thành ```[[Prototype]] của tất cả các thể hiện như ví dụ bên dưới.
+```
+const boxPrototype = {
+  getValue() {
+    return this.value;
+  },
+};
+
+const boxes = [
+  { value: 1, __proto__: boxPrototype },
+  { value: 2, __proto__: boxPrototype },
+  { value: 3, __proto__: boxPrototype },
+];
+```
+
+Như trên thì tất cả thể hiện đều trỏ tới cùng một phương thức, giúp tiết kiệm bộ nhớ. Tuy nhiên, điều chỉnh ```__proto__``` thủ công vẫn khá bất tiện. Đây là lúc chúng ta nên sử dụng hàm khởi tạo - hàm này tụ động điều chỉnh [[Prototype]] cho các đối tượng được tạo ra. Hàm khởi tạo là các phương thức được gọi với ```new```
+```
+// A constructor function
+function Box(value) {
+  this.value = value;
+}
+
+// Properties all boxes created from the Box() constructor
+// will have
+Box.prototype.getValue = function () {
+  return this.value;
+};
+
+const boxes = [new Box(1), new Box(2), new Box(3)];
+```
+Lưu ý: Không nên thay đổi thuộc tính của các build-in objects
+**Xây dựng các chuỗi kế thừa**
+
+Môt hàm khởi tạo bình thường sẽ có các chuỗi kế thừa sau
+```
+function Constructor() {}
+
+const obj = new Constructor();
+// obj ---> Constructor.prototype ---> Object.prototype ---> null
+```
+Để xây dựng các chuỗi nguyên mẫu, chúng ta có thể điều chỉnh ```[[prototype]] của thuộc tính ```Constructor.prototype``` thông qua hàm ```Object.setPrototypeOf()```(Tương tự với extends trong class).
+```
+function Base() {}
+function Derived() {}
+// Set the `[[Prototype]]` of `Derived.prototype`
+// to `Base.prototype`
+Object.setPrototypeOf(Derived.prototype, Base.prototype);
+
+const obj = new Derived();
+// obj ---> Derived.prototype ---> Base.prototype ---> Object.prototype ---> null
+```
+
+Trong JS, các phương thức đều có thể có các thuộc tính. Toàn bộ phương thức đều có các thuộc tính đặc biệt được đặt tên là ```prototype```
+```
+function doSomething() {}
+console.log(doSomething.prototype);
+```
+Dòng lệnh sau sẽ trả về kết quả như bên dưới nếu chạy trong cửa sổ trình duyệt
+```
+{
+  constructor: ƒ doSomething(),
+  [[Prototype]]: {
+    constructor: ƒ Object(),
+    hasOwnProperty: ƒ hasOwnProperty(),
+    isPrototypeOf: ƒ isPrototypeOf(),
+    propertyIsEnumerable: ƒ propertyIsEnumerable(),
+    toLocaleString: ƒ toLocaleString(),
+    toString: ƒ toString(),
+    valueOf: ƒ valueOf()
+  }
+}
+```
+**Tóm tắt các cách để tạo và biến đổi chuỗi nguyên mẫu**
+1. Hàm khởi tạo
+2. Dùng Object.create() (Không nên)
+3. Dùng lớp (classes)
+4. Dùng Object.setPrototypeOf()
+5. Dùng hàm truy cập __proto__
 #### 1.2.2 Go
 ##### a) Quản lý phụ thuộc trong Go
 
