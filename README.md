@@ -611,6 +611,20 @@ Dòng lệnh sau sẽ trả về kết quả như bên dưới nếu chạy tron
 3. Dùng lớp (classes)
 4. Dùng Object.setPrototypeOf()
 5. Dùng hàm truy cập __proto__
+
+##### l) Ép kiểu
+**Chuyển đổi dữ liệu**
+
+Là thao tác chuyển dữ liệu từ một kiểu sang kiểu khác. Đều có thể là ép kiểu tường minh hoặc ép kiểu ngầm định
+
+Ví dụ: Cho biểu thức ```"foo" + 1```, số ```1``` được ép kiểu ngầm định thành kiểu String và kết quả của biểu thức trả về chuỗi "foo1". Cho biểu thức ```Number("0x11")```, chuỗi ```"0x11"``` được ép kiểu tường minh sang số ```17```
+
+**Ép kiểu** : là thao tác tự động chuyển đổi giá trị từ 1 kiểu dữ liệu sang kiểu khác (như kiểu String thành Number). Chuyển đổi dữ liệu tương tự với ép kiểu vì chúng đều chuyển đổi các giá trị từ một kiểu dữ liệu sang một kiểu khác, điểm khác biệt chính của 2 thao tác này là chuyển đổi dữ liệu có thể là tường minh hoặc ngầm định, trong khi ép kiểu chỉ có thể là ngầm định
+
+Bảng chuyển đổi dữ liệu JavaScript
+| Giá trị ban đầu| Number| String| Boolean|
+| false| 0| "false"| false
+
 #### 1.2.2 Go
 ##### a) Quản lý phụ thuộc trong Go
 
