@@ -622,8 +622,32 @@ Ví dụ: Cho biểu thức ```"foo" + 1```, số ```1``` được ép kiểu ng
 **Ép kiểu** : là thao tác tự động chuyển đổi giá trị từ 1 kiểu dữ liệu sang kiểu khác (như kiểu String thành Number). Chuyển đổi dữ liệu tương tự với ép kiểu vì chúng đều chuyển đổi các giá trị từ một kiểu dữ liệu sang một kiểu khác, điểm khác biệt chính của 2 thao tác này là chuyển đổi dữ liệu có thể là tường minh hoặc ngầm định, trong khi ép kiểu chỉ có thể là ngầm định
 
 Bảng chuyển đổi dữ liệu JavaScript
-| Giá trị ban đầu| Number| String| Boolean|
-| false| 0| "false"| false
+
+| Giá trị            | Number        | String            | Boolean |
+|--------------------|---------------|--------------------|---------|
+| false              | 0             | "false"            | false   |
+| true               | 1             | "true"             | true    |
+| 0                  | 0             | "0"                | false   |
+| 1                  | 1             | "1"                | true    |
+| "0"                | 0             | "0"                | true    |
+| "000"              | 0             | "000"              | true    |
+| "1"                | 1             | "1"                | true    |
+| NaN                | NaN           | "NaN"              | false   |
+| Infinity           | Infinity      | "Infinity"         | true    |
+| -Infinity          | -Infinity     | "-Infinity"        | true    |
+| ""                 | 0             | ""                 | false   |
+| "20"               | 20            | "20"               | true    |
+| "twenty"           | NaN           | "twenty"           | true    |
+| [ ]                | 0             | ""                 | true    |
+| [20]               | 20            | "20"               | true    |
+| [10,20]            | NaN           | "10,20"            | true    |
+| ["twenty"]         | NaN           | "twenty"           | true    |
+| ["ten","twenty"]   | NaN           | "ten,twenty"       | true    |
+| function(){}       | NaN           | "function(){}"     | true    |
+| { }                | NaN           | "[object Object]"  | true    |
+| null               | 0             | "null"             | false   |
+| undefined          | NaN           | "undefined"        | false   |
+
 
 #### 1.2.2 Go
 ##### a) Quản lý phụ thuộc trong Go
