@@ -648,7 +648,56 @@ Bảng chuyển đổi dữ liệu JavaScript
 | null               | 0             | "null"             | false   |
 | undefined          | NaN           | "undefined"        | false   |
 
+##### k) Cấu trúc dữ liệu
+Một cấu trúc dữ liệu được thiết kế đẻ sắp xếp, quản lý và lưu trữ dữ liệu theo một cách cho phép truy cập và tùy chỉnh một cách hiệu quả. JS bao gồm các cấu trúc dữ liệu được xây dựng sẵn và không được xây dựng sẵn. 
 
+**Bộ sưu tập có chỉ mục (Indexed colections)**
+
+Là những collection có các số thứ tự, dữ liệu trong các collection này được sắp xếp theo số thứ tự. 
+
+_Arrays_: Trong JS, một mảng(array) là một tập hợp có chỉ mục. Một mảng bao gồm các giá trị được sắp xếp và có có chỉ mục.
+
+Tính chất của arrays:
+* Kích thước mảng linh hoạt và có thể chứa các kiểu dữ liệu khác nhau
+* Chỉ mục bắt đầu từ 0
+* Chỉ có thể truy cập phần tử bằng số nguyên không âm
+* Thao tác copy của array tạo ra bản sao mới hoàn toàn
+
+Truy cập phần tử trong array bằng cách sử dụng ngoặc vuông thay vì dấu chấm. Sử dụng cú pháp ```Array[index]``` để truy cập, khi làm vậy thì ```index``` sẽ được ép kiểu ngầm định thành String bởi trình biên dịch JS.
+
+Khi thêm thuộc tính mới mà sử dụng chỉ mục hợp lệ và có phạm vi vượt ngoài biên thì vẫn tạo được thành công, còn các chỉ mục trống trước đó thì được để trống
+```
+fruits.length = 10;
+console.log(fruits); // ['banana', 'apple', 'peach', empty x 2, 'mango', empty x 4]
+console.log(Object.keys(fruits)); // ['0', '1', '2', '5']
+console.log(fruits.length); // 10
+console.log(fruits[8]); // undefined
+```
+Các hành vi của phương thức xử lý trong arrays:
+* Các phương thức cũ sẽ bỏ qua empty slot (forEach..) còn các phương thức mới thì xử lý empty slot như undefined
+* Một vài phương thức sẽ thay đổi mảng mặc định, còn số khác thì tạo một mảng mới với kết quả xử lý của phương thức đó (Các dữ liệu trong đó như đối tượng thì tạo thành một bản sao chép sâu còn kiểu dữ liệu nguyên thủy thì tạo thành bản mới hoàn toàn)
+* Đa số các hàm callback đều có cấu trúc ```method(callbackFn, thisArg)```
+  Hàm callback được gọi tuần tự và tối đa mỗi lần lặp trong mảng
+  
+  Hàm callback nhận 3 đối số (element: giá trị hiện tại đang được xử lý trong mảng, index: chỉ mục của phần tử đang được xử lý trong mảng, array: mảng được dùng).
+  
+  Đối số thisArg (mặc định là undefined và được thay thế bằng globalThis) được dùng như ```this`` khi gọi callbackFn, không có tác dụng khi dùng arrow function.
+
+Logic xủ lý của một số phương thức duyệt phần tử như bên dưới
+```
+function method(callbackFn, thisArg) {
+  const length = this.length;
+  for (let i = 0; i < length; i++) {
+    if (i in this) {
+      const result = callbackFn.call(thisArg, this[i], i, this);
+      // Do something with result; maybe return early
+    }
+  }
+}
+```
+Đối tượng giống mảng: bất kì đối tượng nào không gây lỗi khi chuyển đổi ```length```, có các phần tử được đánh chỉ số từ 0 đến length - 1. Ví dụ: NodeList, HTMLCollection
+
+(Array list)[https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array]
 #### 1.2.2 Go
 ##### a) Quản lý phụ thuộc trong Go
 
