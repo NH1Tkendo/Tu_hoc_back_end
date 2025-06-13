@@ -698,6 +698,10 @@ function method(callbackFn, thisArg) {
 Đối tượng giống mảng: bất kì đối tượng nào không gây lỗi khi chuyển đổi ```length```, có các phần tử được đánh chỉ số từ 0 đến length - 1. Ví dụ: NodeList, HTMLCollection
 
 (Array list)[https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array]
+
+_Typed Arrays_: Là một đối tượng có hành vi giống arrays có tác dụng cung cấp các tính năng đọc và viết dữ liệu nhị phầm vào bộ nhớ đệm. Không có thuộc tính hoặc phương thức JS nào được đặt tên là Typed Array, nhưng các thuộc tính và phương thức có thể được sử dụng với các đối tượng Typed Array.
+
+Typed Arrays được sử dụng bởi: WebGL, Canvas, Web Audio API, XMLHttpRequests, Fetch API, WebSockets, Web Workers, Media Source API and File APIs
 #### 1.2.2 Go
 ##### a) Quản lý phụ thuộc trong Go
 
