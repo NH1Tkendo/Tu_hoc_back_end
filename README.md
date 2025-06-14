@@ -702,6 +702,18 @@ function method(callbackFn, thisArg) {
 _Typed Arrays_: Là một đối tượng có hành vi giống arrays có tác dụng cung cấp các tính năng đọc và viết dữ liệu nhị phầm vào bộ nhớ đệm. Không có thuộc tính hoặc phương thức JS nào được đặt tên là Typed Array, nhưng các thuộc tính và phương thức có thể được sử dụng với các đối tượng Typed Array.
 
 Typed Arrays được sử dụng bởi: WebGL, Canvas, Web Audio API, XMLHttpRequests, Fetch API, WebSockets, Web Workers, Media Source API and File APIs
+
+Typed Arrays được chia làm 2 phần là buffers và views. Một buffer là đối tượng đại diện cho một khối dữ liệu; nó không có định dạng cụ thể và không cung cấp cơ chế để truy cập nội dung bên trong. Để truy cập bộ nhớ được chứa trong một buffer, bạn cần sử dụng view. View cung cấp các ngữ cảnh để truy cập - nghĩa là xác định kiểu dữ liệu, nơi bắt đầu và số các phần tử cần truy cập.
+
+**Buffers**: Là các đối tượng dùng để chứa dữ liệu thô. Buffers hỗ trợ các khả năng 
+* Phân bố: khi một buffer mới được tạo, một phân vùng bộ nhớ mới được phân bổ và được khởi tạo về 0
+* Sao chép: Dùng phương thức slice(), bạn có thể sao chép một cách hiệu quả phân vùng của bộ nhớ đó mà không cần phải tạo views để sao chép thủ công từ byte một
+* Chuyển dữ liệu: Dùng hàm ```transfer()``` và ```transferToFixedLength()```, chuyển phân vùng bộ nhớ tới một đối tượng buffer mới.
+* Điều chỉnh kích thước: ```resize()```, đây là phương thức để điều chỉnh kích thước của phân vùng dữ liệu (Lưu ý: kích thước của ```SharedArrayBuffer``` có thể tăng chứ không giảm)
+
+**Views**: Có 2 loại chính là typed array views và ```DataView```. Typed arrays cung cấp nhiều phương thức tiện lợi để chuyển đổi dữ liệu nhị phân. ```DataView``` thuộc cấp thấp hơn và cho phép kiểm soát chi tiết cách dữ liệu được xử lý. Cách để đọc và viết dữ liệu sử dụng các views khác nhau hoàn toàn
+
+##### l) Bộ sưu tập theo khóa
 #### 1.2.2 Go
 ##### a) Quản lý phụ thuộc trong Go
 
