@@ -713,7 +713,10 @@ Typed Arrays được chia làm 2 phần là buffers và views. Một buffer là
 
 **Views**: Có 2 loại chính là typed array views và ```DataView```. Typed arrays cung cấp nhiều phương thức tiện lợi để chuyển đổi dữ liệu nhị phân. ```DataView``` thuộc cấp thấp hơn và cho phép kiểm soát chi tiết cách dữ liệu được xử lý. Cách để đọc và viết dữ liệu sử dụng các views khác nhau hoàn toàn
 
-##### l) Bộ sưu tập theo khóa
+##### l) Tập hợp theo khóa
+Là tập hợp những dữ liệu được lưu theo khóa thay vì chỉ mục. Trong JS có 2 tập hợp thuộc kiểu này là map và set, chúng có thể được duyệt theo thứ tự chèn vào
+##### m) Dữ liệu có cấu trúc
+Dữ liệu có cấu trúc được dùng bởi các công cụ tìm kiếm như Google, 
 #### 1.2.2 Go
 ##### a) Quản lý phụ thuộc trong Go
 
