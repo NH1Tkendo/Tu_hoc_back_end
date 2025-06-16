@@ -726,6 +726,7 @@ Object có nhiều nét tương đồng như Map, cả hai đều cho bạn gán
 |                         | Map                                                           | Object                                                                                                                                         |
 |-------------------------|---------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------|
 | Vô tình kế thừa khóa    | Không thể (nó chỉ chứa những gì được đưa vào)                | Có thể (`Object` có các nguyên mẫu của nó nên nó có thể chứa các khóa mặc định mà có thể gây xung đột với khóa của bạn nếu không cẩn thận) |
+| Bảo mật| An toàn| Không an toàn (Hacker có thể ghi đề nguyên mẫu của đối tượng) |
 
 ##### m) Dữ liệu có cấu trúc
 Dữ liệu có cấu trúc được dùng bởi các công cụ tìm kiếm như Google, để hiểu được nội dung của trang web, cũng như tổng hợp thông tin về web và thế giới nói chung.
