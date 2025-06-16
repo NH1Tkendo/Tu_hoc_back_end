@@ -727,7 +727,36 @@ Object có nhiều nét tương đồng như Map, cả hai đều cho bạn gán
 |-------------------------|---------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------|
 | Vô tình kế thừa khóa    | Không thể (nó chỉ chứa những gì được đưa vào)                | Có thể (`Object` có các nguyên mẫu của nó nên nó có thể chứa các khóa mặc định mà có thể gây xung đột với khóa của bạn nếu không cẩn thận) |
 | Bảo mật| An toàn| Không an toàn (Hacker có thể ghi đề nguyên mẫu của đối tượng) |
+| Kiểu dữ liệu của khóa| Có thể là bất cứ kiểu dữ liệu nào| Phải là String hoặc Symbol|
+| Thứ tự của khóa| Theo thứ tự được chèn vào| Có tính thứ tự (Nhưng không nên phụ thuộc vào nó|
+| Kích cỡ| Số lượng phần tử trong một ```Map``` có thể dễ dàng lấy bằng thuộc tính ```size``` của nó| Phức tạp hơn và ít hiệu quả, sử dụng ```length``` của mảng được trả về từ hàm ```Object.keys()```|
+| Khả năng lặp| Có thể lặp dễ dàng| Không thể dùng các cú pháp lặp một cách trực tiếp|
+| Hiệu năng| Hoạt động tốt trong trường hợp cần điều chỉnh dữ liệu| Ngược lại|
+| Khả năng chuyển đổi| Không hỗ trợ (Nhưng có thể dùng stringlify() và parse())| stringlify() và parse()|
 
+_Cài đặt thuộc tính đối tượng_
+```
+const wrongMap = new Map();
+wrongMap["bla"] = "blaa";
+wrongMap["bla2"] = "blaaa2";
+
+console.log(wrongMap); // Map { bla: 'blaa', bla2: 'blaaa2' }
+```
+Không nên gán dữ liệu vào map như trên vì nó không tương tác với Map. Thay vào đó nó dùng tính năng của đối tượng, giá trị không được lưu trữ trong Map.
+
+_Cách dùng đúng_
+```
+const contacts = new Map();
+contacts.set("Jessie", { phone: "213-555-1234", address: "123 N 1st Ave" });
+contacts.has("Jessie"); // true
+contacts.get("Hilary"); // undefined
+contacts.set("Hilary", { phone: "617-555-4321", address: "321 S 2nd St" });
+contacts.get("Jessie"); // {phone: "213-555-1234", address: "123 N 1st Ave"}
+contacts.delete("Raymond"); // false
+contacts.delete("Jessie"); // true
+console.log(contacts.size); // 1
+```
+_Maplike objects_ là những đối có hành vi giống ```Map```. Ví dụ: ```RTCStatsReport```
 ##### m) Dữ liệu có cấu trúc
 Dữ liệu có cấu trúc được dùng bởi các công cụ tìm kiếm như Google, để hiểu được nội dung của trang web, cũng như tổng hợp thông tin về web và thế giới nói chung.
 
