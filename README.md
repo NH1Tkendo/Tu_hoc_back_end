@@ -715,8 +715,58 @@ Typed Arrays được chia làm 2 phần là buffers và views. Một buffer là
 
 ##### l) Tập hợp theo khóa
 Là tập hợp những dữ liệu được lưu theo khóa thay vì chỉ mục. Trong JS có 2 tập hợp thuộc kiểu này là map và set, chúng có thể được duyệt theo thứ tự chèn vào
+
+**Map**: là một tập hợp các dữ liệu theo khóa, giống như ```Object``` nhưng khác biệt chính là ```Map``` cho phép khóa thuộc bất cú kiểu dữ liệu nào
+* Khóa trong map là duy nhất
+* vòng lắp ```for...of``` trả về mảng [key, value] mỗi lần lặp
+* vòng lặp lặp theo thứ tự được dữ liệu được chèn vào bởi phương thức ```set()```
+
+Object có nhiều nét tương đồng như Map, cả hai đều cho bạn gán keys cho values, lấy những giá trị đó, xóa keys... Vì lý do này (cũng như không có giải pháp nào khác để thay thế) ```Object``` đã từng được sử dụng như ```map```. Tuy nhiên, có một vài điểm khác biệt chính khiến ```Map``` thích hợp để dùng hơn trong 1 vài trường hợp
+
+| | Map| Object|
+| Vô tình kế thừa khóa| Không thể (nó chỉ chứa những gì được đưa vào)| Có thể (```Object``` có các nguyên mẫu của nó nên nó có thể chứa các khóa mặc định mà có thể gây xung đột đột với khóa của bạn nếu không cẩn thận)|
 ##### m) Dữ liệu có cấu trúc
-Dữ liệu có cấu trúc được dùng bởi các công cụ tìm kiếm như Google, 
+Dữ liệu có cấu trúc được dùng bởi các công cụ tìm kiếm như Google, để hiểu được nội dung của trang web, cũng như tổng hợp thông tin về web và thế giới nói chung.
+
+**JSON**: JavaScript Object Notation là một chuẩn đại diện cho dữ liệu có cấu trúc dựa trên cú pháp của đối tượng trong JavaScript. Nó thường được dùng để gửi dữ liệu trong các ứng dụng web (như gửi dữ liệu từ server tới client, để chúng có thể được hiển thị trong một trang web)
+* Là định dạng đại diện cho dữ liệu
+* Thường được dùng trong APIs và Configs
+* Nhẹ và dễ dàng đọc/viết
+* Tương tác tốt với hầu hết các ngôn ngữ
+
+_Các kiểu dữ liệu JSON hỗ trợ_
+* Strings
+* Numbers
+* Booleans
+* null
+* Arrays
+* Objects
+
+_Cú pháp cơ bản_
+```
+[
+  {
+    "key": "value",
+    "key": "value"
+  },
+  {
+    "key": "value",
+    "key": "value"
+  }
+]
+```
+_Quy tắc cú pháp của JSON_
+* JSON chỉ có thể chứa các kiểu dữ liệu có thể chuyển thành chuỗi
+* Các chuỗi chỉ có thể được bọc bằng dấu ```"```
+* Kiểu số phải được viết bằng ký hiệu thập phân
+* Mỗi thuộc tính của đối tượng bắt buộc phải tuân theo cú pháp ```"key": value```
+* JSON không cho phép chú thích
+
+_Vấn đề phổ biến trong xử lý JSON_
+Sẽ ra sao nếu chúng ta gặp phải chuỗi JSON là kết quả trả về của việc lấy dữ liệu bằng API, chúng ta cần chuyển đổi nó thành đối tượng. Và khi gửi lại đối tượng này thì chúng ta cần phải đổi nó lại thành JSON trước khi gửi. Đối tượng JSON có 2 phương thức để xử lý các trường hợp này:
+* ```parse()```: Chấp nhận một chuỗi JSON như một tham số và trả về đối tượng JS
+* ```stringify()```: Chấp nhận một đối tượng như là tham số và trả về chuỗi JSON tương ứng
+Thực hành về JSON: nằm trong folder ```Test_JSON```
 #### 1.2.2 Go
 ##### a) Quản lý phụ thuộc trong Go
 
