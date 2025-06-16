@@ -723,8 +723,10 @@ Là tập hợp những dữ liệu được lưu theo khóa thay vì chỉ mụ
 
 Object có nhiều nét tương đồng như Map, cả hai đều cho bạn gán keys cho values, lấy những giá trị đó, xóa keys... Vì lý do này (cũng như không có giải pháp nào khác để thay thế) ```Object``` đã từng được sử dụng như ```map```. Tuy nhiên, có một vài điểm khác biệt chính khiến ```Map``` thích hợp để dùng hơn trong 1 vài trường hợp
 
-| | Map| Object|
-| Vô tình kế thừa khóa| Không thể (nó chỉ chứa những gì được đưa vào)| Có thể (```Object``` có các nguyên mẫu của nó nên nó có thể chứa các khóa mặc định mà có thể gây xung đột đột với khóa của bạn nếu không cẩn thận)|
+|                         | Map                                                           | Object                                                                                                                                         |
+|-------------------------|---------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------|
+| Vô tình kế thừa khóa    | Không thể (nó chỉ chứa những gì được đưa vào)                | Có thể (`Object` có các nguyên mẫu của nó nên nó có thể chứa các khóa mặc định mà có thể gây xung đột với khóa của bạn nếu không cẩn thận) |
+
 ##### m) Dữ liệu có cấu trúc
 Dữ liệu có cấu trúc được dùng bởi các công cụ tìm kiếm như Google, để hiểu được nội dung của trang web, cũng như tổng hợp thông tin về web và thế giới nói chung.
 
