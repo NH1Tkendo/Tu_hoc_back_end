@@ -819,9 +819,20 @@ Lưu ý: Khuyến khích dùng so sánh nghiêm ngặt hơn vì cho kết quả 
 **So sánh nghiêm ngặt**: ```===``` so sánh cả giá trị và kiểu của 2 toán hạng được truyền vào. Điều này có nghĩa là kết quả chỉ đúng khi cả 2 điều kiện này đều. Đại diện cho thuật toán ```IsStrictlyEqual```.
 
 Khi so sánh bình thường thì luôn theo tiêu chuẩn "Một giá trị chỉ bằng chính nó".
+
+_isStrictlyEqual algorithms_
+* B1: Nếu toán hạng thuộc kiểu khác nhau, trả về ```false```
+* B2: Nếu cả 2 toán hạng đều là objects, trả về ```true``` chỉ khi chúng đều tham chiếu cùng một đối tượng
+* B3: Nếu cả 2 toán hạng đều là ```null``` hoặc ```undefined```, trả về ```true```
+* B4: Nếu một trong hai toán hạng là ```NaN```, trả về ```false```
+* B5: So sánh giá trị của 2 toán hạng:
+  * Numbers phải có cùng giá trị số học
+  * Strings phải có các kí tự theo cùng thứ tự
+  * Booleans phải đều là ```true``` hoặc ```false```
 **So sánh lỏng lẻo**: ```==``` thực hiện chuyển đổi kiểu dữ liệu của toán hạng trước khi bắt đầu so sánh. Đại diện cho thuật toán ```IsLosselyEqual```.
 
-So sánh lỏng lẻo có tính chất đối xứng, ```A==B``` luôn giống ```B==A``` cho bất kì giá trị nào của A và B. Quy luật của so sánh lỏng lẻo như sau:
+So sánh lỏng lẻo có tính chất đối xứng, ```A==B``` luôn giống ```B==A``` cho bất kì giá trị nào của A và B.
+_isLooselyEqual algorithms_
 * Bước 1: Nếu các toán hạng có cùng kiểu dữ liệu, chúng được so sánh như sau
   * Đối tượng: Trả về ```true``` nếu cùng tham chiếu tới cùng một đối tượng
   * Chuỗi: Trả về ```true``` nếu cả hai toán hạng có các kí tự giống nhau theo cùng thứ tự
@@ -839,6 +850,8 @@ So sánh lỏng lẻo có tính chất đối xứng, ```A==B``` luôn giống `
   * Number thành BigInt: so sánh giá trị số học của chúng. Nếu number là vô cực hoặc ```NaN``, trả về ```false```
   * String to BigInt: chuyển đổi string thành BigInt dùng thuật toán tương tự với hàm khởi tạo BigInt(). Nếu chuyển đổi thất bại, trả về false 
 **Object.is**: Không thực hiện chuyển đổi kiểu và không có cách xử lý đặc biệt cho ```NaN, -0, +0```. Cách so sánh giống ```===``` và đại diện cho thuật toán ```SameValue```.
+
+So sánh bằng giá trị tuyệt đối quyết định xem 2 giá trị có giống nhau trong mọi trường hợp hay không,
 #### 1.2.2 Go
 ##### a) Quản lý phụ thuộc trong Go
 
