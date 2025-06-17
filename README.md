@@ -757,6 +757,8 @@ contacts.delete("Jessie"); // true
 console.log(contacts.size); // 1
 ```
 _Maplike objects_ là những đối có hành vi giống ```Map```. Ví dụ: ```RTCStatsReport```
+
+VD: trong folder testKeyedCollection
 ##### m) Dữ liệu có cấu trúc
 Dữ liệu có cấu trúc được dùng bởi các công cụ tìm kiếm như Google, để hiểu được nội dung của trang web, cũng như tổng hợp thông tin về web và thế giới nói chung.
 
