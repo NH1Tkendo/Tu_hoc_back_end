@@ -758,6 +758,17 @@ console.log(contacts.size); // 1
 ```
 _Maplike objects_ là những đối có hành vi giống ```Map```. Ví dụ: ```RTCStatsReport```
 
+_WeakMap_: tập hợp các cặp key/value mà các key phải là các đối tượng hoặc các symbols chưa được đăng ký, các giá trị là bất kì kiểu dữ liệu nào trong JS. Điểm đặc biệt của ```WeakMap``` là nó không tạo liên kết mạnh (strong reference) tới khóa (đối tượng dùng làm khóa có thể bị thu gom bộ nhớ
+
+_Set_: là đối tượng cho phép lư trữ nhiều giá trị độc nhật của bất cứ kiểu dữ liệu nào (Bao gồm kiểu dữ liệu nguyên thủy và các tham chiếu tới đối tượng). Giá trị của một set chỉ có thể là duy nhất.
+* Có thể duyệt qua set theo thứ tự được truyền vào (Phương thức add())
+* Có tính hợp các phương thức toán học
+* Mảng và WeakSet đều không phải là đối tượng giống Set
+
+Điều kiện để trở thành các đối tượng giống set
+* Một thuộc tính ```size``` có giá trị là số nguyên
+* Phương thức ```has()``` nhận một giá trị và trả về boolean
+* Phương thức keys() trả về một mảng lặp được trong phần tử trong set
 VD: trong folder testKeyedCollection
 ##### m) Dữ liệu có cấu trúc
 Dữ liệu có cấu trúc được dùng bởi các công cụ tìm kiếm như Google, để hiểu được nội dung của trang web, cũng như tổng hợp thông tin về web và thế giới nói chung.
@@ -801,6 +812,33 @@ Sẽ ra sao nếu chúng ta gặp phải chuỗi JSON là kết quả trả về
 * ```parse()```: Chấp nhận một chuỗi JSON như một tham số và trả về đối tượng JS
 * ```stringify()```: Chấp nhận một đối tượng như là tham số và trả về chuỗi JSON tương ứng
 Thực hành về JSON: nằm trong folder ```Test_JSON```
+##### n) So sánh
+Các toán tử so sánh được dùng trong các mệnh đề logic để xác định giá trị của các biến có bằng nhau hay không. Các toán tử so sánh có thể được dùng trong các mệnh đề điều kiện để so sánh các giá trị và phân loại hành động dựa trên kết quả
+
+Lưu ý: Khuyến khích dùng so sánh nghiêm ngặt hơn vì cho kết quả dễ đoán, đôi khi còn cho ra kết quả nhanh hơn so sánh lỏng lẻo.
+**So sánh nghiêm ngặt**: ```===``` so sánh cả giá trị và kiểu của 2 toán hạng được truyền vào. Điều này có nghĩa là kết quả chỉ đúng khi cả 2 điều kiện này đều. Đại diện cho thuật toán ```IsStrictlyEqual```.
+
+Khi so sánh bình thường thì luôn theo tiêu chuẩn "Một giá trị chỉ bằng chính nó".
+**So sánh lỏng lẻo**: ```==``` thực hiện chuyển đổi kiểu dữ liệu của toán hạng trước khi bắt đầu so sánh. Đại diện cho thuật toán ```IsLosselyEqual```.
+
+So sánh lỏng lẻo có tính chất đối xứng, ```A==B``` luôn giống ```B==A``` cho bất kì giá trị nào của A và B. Quy luật của so sánh lỏng lẻo như sau:
+* Bước 1: Nếu các toán hạng có cùng kiểu dữ liệu, chúng được so sánh như sau
+  * Đối tượng: Trả về ```true``` nếu cùng tham chiếu tới cùng một đối tượng
+  * Chuỗi: Trả về ```true``` nếu cả hai toán hạng có các kí tự giống nhau theo cùng thứ tự
+  * Số: Trả về ```true``` chỉ khi cả 2 toán hạn có giá trị giống nhau (+0 và -0 bằng nhau, NaN luôn luôn khác nhau)
+  * Boolean: Trả về ```true``` chỉ khi các toán hạng đều là ```true``` hoặc ```false```
+  * BigInt: Trả về ```true``` chỉ khi cả hai toán hạng đều có cùng giá trị
+  * Symbol: Trả về ```true``` chỉ khi cả hai toán hạng đều tham chiếu tới cùng symbol
+* Bước 2: Nếu một trong 2 toán hạng là ```null``` hoặc ```undefined```, toán hạng còn lại cũng phải như vậy để ```true```. Ngược lại là ```false```
+* Bước 3: Nếu một trong các toán hạng là một đối tượng và cái còn lại là kiểu dữ liệu nguyên thủy, chuyển đổi các còn lại sang kiểu dữ liệu nguyên thủy
+* Bước 4: So sánh 2 toán hạng thuộc kiểu dữ liệu nguyên thủy
+  * Nếu cùng loại, làm như bước 1
+  * Nếu một loại Symbol còn cái còn lại thì không, trả về ```false```
+  * Nếu 1 là Boolean còn 1 thì không, chuyển đổi boolean thành number tương ứng và so sánh lại
+  * Chuyển đổi số thành chuỗi, chuyển đổi thất bại trả về NaN, đảm bảo kết quả trả về ```false```
+  * Number thành BigInt: so sánh giá trị số học của chúng. Nếu number là vô cực hoặc ```NaN``, trả về ```false```
+  * String to BigInt: chuyển đổi string thành BigInt dùng thuật toán tương tự với hàm khởi tạo BigInt(). Nếu chuyển đổi thất bại, trả về false 
+**Object.is**: Không thực hiện chuyển đổi kiểu và không có cách xử lý đặc biệt cho ```NaN, -0, +0```. Cách so sánh giống ```===``` và đại diện cho thuật toán ```SameValue```.
 #### 1.2.2 Go
 ##### a) Quản lý phụ thuộc trong Go
 
