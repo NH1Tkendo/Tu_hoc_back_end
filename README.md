@@ -851,7 +851,11 @@ _isLooselyEqual algorithms_
   * String to BigInt: chuyển đổi string thành BigInt dùng thuật toán tương tự với hàm khởi tạo BigInt(). Nếu chuyển đổi thất bại, trả về false 
 **Object.is**: Không thực hiện chuyển đổi kiểu và không có cách xử lý đặc biệt cho ```NaN, -0, +0```. Cách so sánh giống ```===``` và đại diện cho thuật toán ```SameValue```.
 
-So sánh bằng giá trị tuyệt đối quyết định xem 2 giá trị có giống nhau trong mọi trường hợp hay không,
+So sánh bằng giá trị tuyệt đối quyết định xem 2 giá trị có giống nhau trong mọi trường hợp hay không
+
+**Same-Value-Zero**: So sánh giống Same-Value nhưng coi +0 và -0 là bằng nhau
+
+
 #### 1.2.2 Go
 ##### a) Quản lý phụ thuộc trong Go
 
