@@ -854,7 +854,86 @@ _isLooselyEqual algorithms_
 So sánh bằng giá trị tuyệt đối quyết định xem 2 giá trị có giống nhau trong mọi trường hợp hay không
 
 **Same-Value-Zero**: So sánh giống Same-Value nhưng coi +0 và -0 là bằng nhau
+##### o) Vòng lặp
+Tính năng cho phép làm một việc có tính lặp lại cao một cách nhanh và dễ dàng.
 
+Có nhiều loại vòng lặp, nhưng chúp đều có một điểm chung là lặp lại một hành động theo số lần được quy định.
+
+Các loại vòng lặp trong JavaScript:
+* Lệnh for
+* Lệnh do...while
+* Lệnh while
+* Lệnh labeled
+* Lệnh break
+* Lệnh countinue
+* Lệnh for...in
+* Lệnh for...of
+
+**Lệnh for**: Lặp tới khi một điều kiện không còn đúng
+```
+for(initialization; condition; afterthought)
+	statement
+```
+```initialization```: Một biểu thức để khai báo biến được triển khai trước khi vòng lặp bắt đầu.
+
+```condition```: Biểu thức được triển kahi trước mỗi lần lặp. Nếu true thì ```statement``` được thực thi. Nếu biểu thức sai thì kết thúc vòng lặp.
+
+```afterthought```: Biểu thức được thực thi mỗi lần kết thúc một vòng lặp. Thường dùng để cập nhật biến đếm
+
+```statement```: được thực thi khi ```condition``` trả về true.
+
+Thuật toán của lệnh ```for```:
+* B1: Khởi tạo biểu thức initialization (nếu có). Biểu thức này thường dùng để khởi tạo một hoặc nhiều biến dùng để đếm vòng lặp.
+* B2: Biểu thức ```condition``` được triển khai. nếu giá trị là true thì thực thị vòng lặp. Ngược lại, kết thúc vòng lặp. Nếu ```condition``` bị bỏ trống thì mặc định là true
+* B3: Thực thi phần ```statement```
+* B4: Thực thi biểu thức ```afterthough```
+* B5: Quay lại bước 2
+  
+**do...while**: lặp laị một điều kiện cho tới khi điều kiện đó không còn đúng
+```
+do
+	statement
+while (condition);
+```
+```statement``` luôn được thực thi một lần trước khi điều kiện được kiểm tra
+
+**While**: xử lý các câu lệnh của nó nếu điều kiện ```true```
+```
+while(condition)
+	statement
+```
+
+Thuật toán lệnh ```while```:
+* Nếu ```condition``` false, kết thúc vòng while
+* Nếu ```condition``` true, ```statement``` được thực thi và ```condition``` được kiểm tra lần nữa. Nếu ```condition``` sai, kết thúc vòng lặp.
+
+**Lệnh break**: Có tác dụng kết thúc một vòng lặp, ```switch```...
+```
+break;
+```
+
+**Lệnh countinue**: được dùng để bắt đầu lại một lệnh lặp.
+```
+countinue;
+```
+
+countinue sẽ kết thúc vòng lặp hiện tại và tiếp tục thực thi vòng lặp tiếp theo. Đối lặp với lệnh ```break```, ```countinue``` không thực sự kết thúc vòng lặp.
+
+**for...in**: Duyệt qua toàn bộ thuộc tính liệt kê được nhất định và gán cho biến tương ứng. Với mỗi thuộc tính, JS thực thi các câu lệnh trong phần ```statement```
+
+```
+for(variable in object)
+	statement
+```
+
+**for...of**: Tạo một vòng lặp duyệt qua các đối tượng có thể lặp được (Array, Map, Set, arguments...), các statement sẽ được thực thi với mỗi lần duyệt
+```
+for (variable of iterable)
+	statement
+```
+
+Lưu ý: ```for...in``` duyệt qua tên thuộc tính, ```for...of``` duyệt qua các giá trị của thuộc tính
+##### p) Kiểm soát luồng (Control Flow)
 
 #### 1.2.2 Go
 ##### a) Quản lý phụ thuộc trong Go
