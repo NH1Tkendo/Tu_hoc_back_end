@@ -934,7 +934,17 @@ for (variable of iterable)
 
 Lưu ý: ```for...in``` duyệt qua tên thuộc tính, ```for...of``` duyệt qua các giá trị của thuộc tính
 ##### p) Kiểm soát luồng (Control Flow)
+Trong JS, kiểm soát luồng là cách máy tính chạy mã từ trên xuống dưới. Nó bắt đầu từ dòng đầu tới cuối trừ khi có câu lệnh nào đó làm thay đổi luồng như lệnh lặp, điều kiện...
 
+Chúng ta có thể điều khiển luồng của chương trình qua bất kì cấu trúc này dưới đây:
+* Cấu trúc tuần tự (mặc định)
+* Lệnh điều kiện
+* Xử lý lỗi
+* Các câu lệnh lặp
+
+**Câu lệnh điều kiện**: Đại diện cho những hành động được đưa ra bởi những quyết định khác nhau. Câu lệnh điều kiện bao gồm: ```if, if...else, switch```.
+
+**Xử lý ngoại lệ**: 
 #### 1.2.2 Go
 ##### a) Quản lý phụ thuộc trong Go
 
