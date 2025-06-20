@@ -944,7 +944,53 @@ Chúng ta có thể điều khiển luồng của chương trình qua bất kì 
 
 **Câu lệnh điều kiện**: Đại diện cho những hành động được đưa ra bởi những quyết định khác nhau. Câu lệnh điều kiện bao gồm: ```if, if...else, switch```.
 
-**Xử lý ngoại lệ**: 
+**Xử lý ngoại lệ**: là quá trình phát hiện và xử lý các lỗi hoặc tình huống bất thường xảy ra khi chương trình đang chạy, nhằm tránh làm chương trình bị dừng đột ngột và cho phép lập trình viên kiểm soát dòng chảy của chương trình một cách an toàn.
+
+_Lệnh throw_: Cho phép người dùng tự tạo ra thông báo lỗi. Khi throw xảy ra thì việc thực thi hàm hiện tại sẽ kết thúc và luồng kiểm soát sẽ chuyển tới lệnh ```catch``` đầu tiên trong mã. Nếu không có ```catch``` thì chương trình sẽ kết thúc
+```throw expression;```
+
+_Try...Catch...Finally_
+
+Lệnh try định nghĩa một khối lệnh để chạy. Lệnh catch định nghĩa một khối lệnh để xử lý lỗi. Lệnh finally định nghĩa một khối lệnh. Lệnh finally định nghĩa một khối lệnh để chạy bất kể kết quả trả về.
+```
+try{
+    statement
+} catch(err){
+	statement
+} finnally{
+	statement
+}
+```
+
+_Error Objects_: Khi có một lỗi xảy ra, một đối tượng ```Error``` mới được tạo và sử dụng. Với đối tượng này, chúng ta có thể xác định loại lỗi và xử lý theo loại của nó
+
+Các loại lỗi:
+* AggregateError: Có nhiều lỗi xảy ra cùng lúc
+* EvalError: Lỗi thực thi hàm eval() không hợp lệ
+* RangeError: Xảy ra khi một biến số học có phạm vi không hợp lệ
+* ReferenceError: Tạo một thể hiện đại diện cho lỗi xảy ra khi tham chiếu tới một tham chiếu không tồn tại
+* SyntaxError: Lỗi cú pháp
+* TypeError: Xảy ra khi một biến hoặc tham chiếu không có kiểu dữ liệu phù hợp
+* URIError: xảy ra khi hàm ```encodeURI()``` hoặc ```decodeURI()``` được truyền đối số không hợp lệ.
+* InternalError: Xảy ra khi mắc kẹt trong vòng lặp
+
+##### q) Biểu thức và toán tử
+Biểu thức là các đoạn mã hợp lệ trả về giá trị. Có 2 loại biểu thức:
+* Biểu thức có tác dụng phụ (Gán giá trị...)
+* Biểu thức thực thi đơn thuần
+
+Các loại toán tử:
+* Toán tử gán
+* Toán tử so sánh
+* Toán tử số học
+* Toán tử thao tác bit
+* Toán tử logic
+* Toán tử BigInt
+* Toán tử chuỗi
+* Toán tử điều kiện
+* Toán tử dấu phẩy
+* Toán tử một ngôi
+* Toán tử quan hệ
 #### 1.2.2 Go
 ##### a) Quản lý phụ thuộc trong Go
 
