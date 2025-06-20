@@ -985,12 +985,19 @@ Các loại toán tử:
 * Toán tử số học
 * Toán tử thao tác bit
 * Toán tử logic
+  * ```falsy && anything```
+  * ```truthy||anything```
+  * ```nonNullish??anything```
 * Toán tử BigInt
+  Hầu hết toán tử dùng được với số đều có thể dùng cho BigInt
 * Toán tử chuỗi
-* Toán tử điều kiện
+* Toán tử ba ngôi
+  ```condition ? val1 : val2```
 * Toán tử dấu phẩy
 * Toán tử một ngôi
 * Toán tử quan hệ
+
+[Tham khảo thêm](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Expressions_and_operators)
 #### 1.2.2 Go
 ##### a) Quản lý phụ thuộc trong Go
 
