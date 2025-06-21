@@ -998,6 +998,11 @@ Các loại toán tử:
 * Toán tử quan hệ
 
 [Tham khảo thêm](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Expressions_and_operators)
+
+##### r) Hàm
+Tác dụng chính dùng để tái sử dụng mã. Hàm là những khối mã được thực thi khi chúng được gọi. Mỗi hàm được viết để thực hiện mục đích nhất định nào đó.
+
+**Tham số hàm**: bao gồm 2 loại là tham số mặc định và tham số còn lại
 #### 1.2.2 Go
 ##### a) Quản lý phụ thuộc trong Go
 
