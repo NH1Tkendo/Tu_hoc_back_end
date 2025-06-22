@@ -1012,8 +1012,6 @@ Tác dụng chính dùng để tái sử dụng mã. Hàm là những khối mã
 
 ![Go mod tidy](md_assets/Go_CaiDatThuVien.png)
 
-
-
 ##### b) Cơ bản về Go
 * Chương trình bắt đầu ở file có khai báo ```package main```
 * Có 2 kiểu khai báo các gói:
