@@ -1003,6 +1003,47 @@ Các loại toán tử:
 Tác dụng chính dùng để tái sử dụng mã. Hàm là những khối mã được thực thi khi chúng được gọi. Mỗi hàm được viết để thực hiện mục đích nhất định nào đó.
 
 **Tham số hàm**: bao gồm 2 loại là tham số mặc định và tham số còn lại
+
+_Tham số mặc định_: Mặc định là ```undefined```, lập trình viên có thể thay đổi giá trị này. Ví dụ:
+```
+function multiply(a, b = 1) {
+  return a * b;
+}
+
+console.log(multiply(5));
+```
+
+_Tham số còn lại_: đại diện cho một số lượng các tham số không xác định như một mảng.
+```
+function multiply(multiplier, ...theArgs) {
+  return theArgs.map((x) => multiplier * x);
+}
+
+const arr = multiply(2, 1, 2, 3);
+console.log(arr); // [2, 4, 6]
+```
+**Hàm mũi tên**: Là cách tạo hàm với toán tử ```=>``` với cú pháp ngắn hơn
+```
+() => expression
+
+param => expression
+
+(param) => expression
+
+(param1, paramN) => expression
+
+() => {
+  statements
+}
+
+param => {
+  statements
+}
+
+(param1, paramN) => {
+  statements
+}
+```
 #### 1.2.2 Go
 ##### a) Quản lý phụ thuộc trong Go
 
