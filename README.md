@@ -1044,6 +1044,31 @@ param => {
   statements
 }
 ```
+**Immediaely-Invoked Function Expression (IIFE)**: là một hàm được thực thi ngay lập tực sau khi được tạo ra
+```
+// standard IIFE
+(function () {
+  // statements…
+})();
+
+// arrow function variant
+(() => {
+  // statements…
+})();
+
+// async IIFE
+(async () => {
+  // statements…
+})();
+```
+Các tình huống sử dụng IIFEs:
+* Tránh làm ô nhiễm phạm vi toàn cục (global namespace)
+* Tạo ngữ cảnh bất đồng bộ (async context) trong môi trường không async
+* Tính toán giá trị phức tạp như một biểu thức duy nhất
+
+**Đối tượng tham số**: là một đối tượng giống mảng có thể truy cập từ bên trong hàm đó. Đối tượng này chứa các giá trị của đối số được truyền vào trong hàm đó.
+
+Lưu ý: giá trị cảu arguments và tên tham số thường đồng bộ với nhau. Điều này không xảy ra nếu dùng tham số mặc định, rest và destructuring 
 #### 1.2.2 Go
 ##### a) Quản lý phụ thuộc trong Go
 
