@@ -1068,7 +1068,48 @@ Các tình huống sử dụng IIFEs:
 
 **Đối tượng tham số**: là một đối tượng giống mảng có thể truy cập từ bên trong hàm đó. Đối tượng này chứa các giá trị của đối số được truyền vào trong hàm đó.
 
-Lưu ý: giá trị cảu arguments và tên tham số thường đồng bộ với nhau. Điều này không xảy ra nếu dùng tham số mặc định, rest và destructuring 
+Lưu ý: giá trị của arguments và tên tham số thường đồng bộ với nhau. Điều này không xảy ra nếu dùng tham số mặc định, rest và destructuring 
+
+Vì ```arguments``` là một đối tượng giống mảng nên nó cũng có thuộc tính ```length``` và có chỉ mục. Nhưng ```arguments``` lại không có các hàm của array như ```forEach()``` và ```map()```
+
+**Hàm được tích hợp sẵn**: JS cung cấp đa dạng các hàm với mục đích đơn giản hóa các tác vụ phổ biến, các hàm này có thể được sử dụng trực tiếp trong phạm vi toàn cục hoặc trong các đối tượng nhất định mà không cần khai báo.
+
+Các tài nguyên thêm:
+```https://dev.to/elpepebenitez/built-in-methods-in-javascript-4bll```
+
+**Phạm vi(scope) và ngăn hàm(function stack)**
+
+_Scope_: Một phạm vi mà một biến hoặc hàm nhất định có thể được truy cập hoặc được sử dụng. Tính truy cập của biến hoặc hàm này phụ thuộc vào nó được định nghĩa ở đâu.
+JS có các loại scope sau:
+* Phạm vi toàn cục: phạm vi mặc định cho toàn bộ mã chạy trong chế độ script
+* Phạm vi module: Là phạm vi áp dụng cho mã chạy trong chế độ module
+* Phạm vi hàm: Phạm vi được tạo trong một hàm
+* Phạm vi khối: Phạm vi được tạo bằng một cặp ngoặc nhọn
+
+_Ngăn xếp hàm_: Cơ chế mà trình thông dịch đánh dấu vị trí của nó trong một đoạn mã có nhiều hàm - hàm nào đang được thực thi và hàm nào được gọi bên trong hàm đó...
+
+* Khi đoạn mã gọi 1 hàm, trình thông dịch thêm nó vào một ngăn xếp, sau đó sẽ bắt đầu thực thi hàm
+* Bất kì hàm nào được gọi bởi hàm đó đều được thêm vào ngăn xếp
+* Khi hàm hiện tại đã được thực thi xong, trình thông dịch lấy nó ra khởi ngăn xếp và tiếp tục thực thi đoạn mã còn lại ở hàm trước
+* Nếu ngăn xếp bị tràn thì lỗi "stack overflow" sẽ xuất hiện
+
+_Đệ quy_: Đệ quy là kỹ thuật gọi lại một hàm ngay bên trong hàm đó. Hàm đệ quy luôn phải có một điều kiện để kết thúc việc gọi lại hàm, trường hợp này gọi là trường hợp cơ sở (Base case). Các trường hợp còn lại gọi là trường hợp đệ quy (recursive cases).
+
+Cách trình phân tích cú pháp đọc và xử lý hàm:
+
+Khi đọc một chương trình JS, thời điểm mà một hàm được đọc, phần thân của nó sẽ được cấp phát không gian bộ nhớ sau khi được biên dịch (dịch thành mã máy để dùng cho các lần sau).
+
+Sau khi cấp phát không gian bộ nhớ xong, sau đó nó lấy địa chỉ của không gian bộ nhớ vừa được cấp phát và gán địa chỉ đó cho tên của hàm.
+
+Trong trường hợp của hàm đệ quy, quá trình này diễn ra như mô tả ở đoạn trước. Đệ quy chỉ đơn giản là tham chiếu đến địa chỉ bộ nhớ nơi chứa đoạn mã của chính hàm đó. Quá trình xảy ra tự động khi mã máy trong thân hàm tự gọi lại chính nó thông qua cùng một địa chỉ bộ nhớ
+
+_Khung ngắn xếp (Frames) và ngăn gọi hàm (call stack)_
+
+Thời điểm mà một hàm được gọi trong JS, tất cả biến cục bộ và tham số của hàm đó được tạo trong một đơn vị có tên là frames. Đơn vị này chiếm không gian dữ liệu trong một cấu trúc dữ liệu đặc biết được biết tới cái tên là ngăn gọi hàm
+
+Thời điểm hàm đó thực thi xong, frame đó sẽ được loại bỏ.
+
+Trong trường hợp của đệ quy, khi hàm chính được gọi, frame của nó được đẩy vào trong ngăn xếp, sai đó thực thi phần thân của hàm này. Sau đó hàm này gọi lại chính nó, việc này đẩy thêm một frame vào ngăn xếp. Quá trình này cứ lặp đi lặp lại tới khi trường hợp cơ sở được thực hiện, hàm hiện tại sẽ kết thúc và tiếp theo là các hàm trước đó cho tói khi hàm cuối cùng trong ngăn xếp được gọi. Trong quá trình này, khi kết thúc một hàm thì frame của chúng sẽ được loại bỏ khỏi ngăn xếp để tối ưu bộ nhớ
 #### 1.2.2 Go
 ##### a) Quản lý phụ thuộc trong Go
 
