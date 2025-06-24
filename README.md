@@ -1113,7 +1113,7 @@ Trong trường hợp của đệ quy, khi hàm chính được gọi, frame c�
 
 _Closures và lexical enviroment(Môi trường từ vựng)_
 
-Một hàm cùng với lexical enviroment đi kèm của nó được gọi chung là một closure
+Một hàm cùng với lexical enviroment đi kèm của nó được gọi chung là một closure. Closure bao gồm hàm, Lexical Enviroment, [[Scopes]] nội bộ
 
 Từ 'lexical' có thể hiểu đơn giản là 'source code'. Lexical enviroment có liên quan tới mã nguồn của một chương trình.
 
@@ -1221,6 +1221,25 @@ var matrix = (function() {
 2. Hàm bậc cao
 
 Là hàm nhận một hàm khác làm đối số hoặc trả về một hàm được gọi là hàm bậc cao
+
+Ví dụ:
+```
+function defineSequence(a, d) {
+   return function(n) {
+      return a + n * d;
+   }
+}
+
+var evens = defineSequence(2, 2);
+console.log(evens(0), evens(1));
+
+var odds = defineSequence(1, 2);
+console.log(odds(0), odds(1), odds(99));
+```
+
+```defineSequence``` tạo ra một hàm nhận 2 đối số ```a``` và ```d``` và sau đó trả về một hàm chỉ nhận 1 đối số ```n```. Hàm trả về này nhớ lexical enviroment của nó.
+
+##### s) DOM APIS
 #### 1.2.2 Go
 ##### a) Quản lý phụ thuộc trong Go
 
