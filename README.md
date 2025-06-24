@@ -1173,6 +1173,54 @@ f2();
 ```
 
 Như ví dụ trên thì có tồn tại tham chiếu tới hàm f1() nằm trong thuộc tính ```[[Scopes]]``` của hàm được trả về nên lexical enviroment của hàm đó vẫn được lưu giữ lại trong bộ nhớ. Tuy nhiên, các bước xử lý khác vẫn thực hiện như bình thường, như việc xóa 1 frame khỏi call stack của f1
+
+_Các áp dụng thực tế_
+
+1. Mẫu thiết kế
+
+Một mẫu thiết kế cung cấp cách tiếp cận để giải quyết vấn đề. Nó có các luật và kiến trúc chung để bám theo khi viết một chương trình. 
+
+Trong một mẫu thiết kế module, chúng ta nhóm mã vào một modile và xuất chúng ra thành một đối tượng với các thuộc tính và phương thức công khai có chức năng truy cập vào các đối tượng cục bộ trong một module
+Ví dụ:
+```
+var matrix = (function() {
+   // variables that ought to be accessible by the
+   // entire code below are defined here
+   /* ... */
+
+   // create r x c matrix
+   function create(r, c = r) { /* ... */ }
+
+   // return a + b
+   function sum(a, b) { /* ... */ }
+
+   // return a - b
+   function diff(a, b) { /* ... */ }
+
+   // return a x b
+   function product(a, b) { /* ... */ }
+
+   // return the sum of the elements in the diagonal,
+   // starting from the top-left corner of the a
+   function sumDiagonal(a) { /* ... */ }
+
+
+   return {
+      create: create,
+      sum: sum,
+      diff: diff,
+      product: product,
+      sumDiagonal: sumDiagonal,
+
+      // more methods follow
+      /* ... */
+   }
+})();
+```
+
+2. Hàm bậc cao
+
+Là hàm nhận một hàm khác làm đối số hoặc trả về một hàm được gọi là hàm bậc cao
 #### 1.2.2 Go
 ##### a) Quản lý phụ thuộc trong Go
 
