@@ -1113,9 +1113,66 @@ Trong trường hợp của đệ quy, khi hàm chính được gọi, frame c�
 
 _Closures và lexical enviroment(Môi trường từ vựng)_
 
-Một hàm cùng với môi trường từ vựng đi kèm của nó được gọi chung là một closure
+Một hàm cùng với lexical enviroment đi kèm của nó được gọi chung là một closure
 
 Từ 'lexical' có thể hiểu đơn giản là 'source code'. Lexical enviroment có liên quan tới mã nguồn của một chương trình.
+
+JS là một ngôn ngữ có lexically-scoped, hay còn được gọi là statically-scoped (Để xác định một tên biến trong hàm, JS sẽ tìm trong môi trường cục bộ của hàm đó, sau đó tiếp tục tìm trong lexical environment - môi trường bao quanh định nghĩa của hàm đó trong mã nguồn)
+
+Hay nói cách khác, lexical enviroment của một hàm được dựa trên mã nguồn của chương trình - nơi mà hàm đó được định nghĩa. Đó là lý do chúng ta gọi nó là lexical enviroment (môi trường dựa trên mã nguồn)
+
+Lexical enviroment được định nghĩa một lần và sau đó được dùng cho toàn bộ chương trình. Đây là lý do JS được gọi là ngôn ngữ statically-scoped - nơi mà có tên được đặt ra (của biến và hàm) có thể truy cập được trong một chương trình đều thuộc dạng tĩnh (không thay đổi) và được quản lý bởi mã nguồn
+```
+var a = 'static';
+
+function f1() {
+   console.log(a);
+}
+
+function f2() {
+   var a = 'dynamic';
+   f1();
+}
+
+f2();
+```
+Trong ví dụ trên, ```f1``` được định nghĩa trong phạm vi toàn cục, nên lexical enviroment là toàn bộ môi trường toàn cục. Tương tụ với ```f2```
+
+Khi ```f2``` được gọi, biến ```a``` được tạo và khởi tạo giá trị thành ```dynamic``` sau đó ```f1``` được gọi. Trong ```f1```, lệnh ```console.log(a)``` được gặp. Ở thời điểm này, biến ```a``` phải được xử lý
+
+Bước 1: Đầu tiên, phạm vi cục bộ của ```f1``` tìm kiếm biến ```a```. Bởi vì môi trường này trống nên không có tên nào được tìm ra. Thế nên, việc tìm kiếm sẽ chuyển sang lexical enviroment của ```f1```
+
+Bước 2: Việc tìm kiếm trong lexical enviroment được mở rộng dần, đầu tiên là tìm kiếm trong môi trường mà hàm này được bao bọc, sau đó là phạm vi bao bọc các môi trường này, cho tới khi tới được môi trường toàn cục.
+
+Bước 3: lexical enviroment bao quanh của ```f1``` đơn giản là phạm vi toàn cuc, việc tìm kiếm sẽ dừng ở đây. Bởi vì đã tìm kiếm được biến ```a``` và gắn với giá trị ```static```, nên biến ```a``` trong ```console.log(a)``` được xử lý vói giá trị ```20```
+
+_Thuộc tính [[Scopes]] trong Chrome_
+
+Ngày này, các công cụ console của trình duyệt tiết lộ khá nhiều thuộc tính nội bộ của các đối tượng nhằm hỗ trợ việc kiểm tra kỹ hơn. Riêng Chrome cung cấp một console rất linh hoạt
+
+Mỗi hàm đều chứa một thuộc tính nội bộ có tên là ```[[Scopes]]```, nó chứa các lexical environment của hàm đó. 
+![lexical enviroment trên chrome console](md_assets/Scopes.png)
+
+_Làm sao JS có thể giữ môi trường cục bộ của một hàm khi đã kết thúc hàm đó?_
+
+Khi thoát một hàm, JS engine phải xóa môi trường cục bộ của nó. Trước khi bắt đầu xóa, JS sẽ xác định để tìm xem có tồn tại tham chiếu nào tới môi trường này không.
+
+```
+function f1() {
+   var a = 'difficult';
+
+   return function() {
+      console.log(a);
+   };
+}
+
+var a = 'easy';
+var f2 = f1();
+
+f2();
+```
+
+Như ví dụ trên thì có tồn tại tham chiếu tới hàm f1() nằm trong thuộc tính ```[[Scopes]]``` của hàm được trả về nên lexical enviroment của hàm đó vẫn được lưu giữ lại trong bộ nhớ. Tuy nhiên, các bước xử lý khác vẫn thực hiện như bình thường, như việc xóa 1 frame khỏi call stack của f1
 #### 1.2.2 Go
 ##### a) Quản lý phụ thuộc trong Go
 
