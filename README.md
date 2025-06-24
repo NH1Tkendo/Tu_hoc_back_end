@@ -1110,6 +1110,12 @@ Thời điểm mà một hàm được gọi trong JS, tất cả biến cục b
 Thời điểm hàm đó thực thi xong, frame đó sẽ được loại bỏ.
 
 Trong trường hợp của đệ quy, khi hàm chính được gọi, frame của nó được đẩy vào trong ngăn xếp, sai đó thực thi phần thân của hàm này. Sau đó hàm này gọi lại chính nó, việc này đẩy thêm một frame vào ngăn xếp. Quá trình này cứ lặp đi lặp lại tới khi trường hợp cơ sở được thực hiện, hàm hiện tại sẽ kết thúc và tiếp theo là các hàm trước đó cho tói khi hàm cuối cùng trong ngăn xếp được gọi. Trong quá trình này, khi kết thúc một hàm thì frame của chúng sẽ được loại bỏ khỏi ngăn xếp để tối ưu bộ nhớ
+
+_Closures và lexical enviroment(Môi trường từ vựng)_
+
+Một hàm cùng với môi trường từ vựng đi kèm của nó được gọi chung là một closure
+
+Từ 'lexical' có thể hiểu đơn giản là 'source code'. Lexical enviroment có liên quan tới mã nguồn của một chương trình.
 #### 1.2.2 Go
 ##### a) Quản lý phụ thuộc trong Go
 
