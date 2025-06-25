@@ -1348,7 +1348,14 @@ fixed.newProp = "ohai"; // TypeError
 Thêm các định danh không thể được sử dụng để làm tên biến. Strict mode có nhiều từ khóa hơn sloppy mode.
 
 ##### u) Từ khóa ```this```
+Từ khóa this liên quan tới ngữ cảnh nơi mà một đoạn mã, như là phần thân của một hàm. Nó thường được dùng trong các phương thức đối tượng, nơi mà ```this``` liên quan tới đối tượng mà phương thức được gắn vào, thêm vào đó cho phép phương thức giống như vậy được tái sử dụng vào đối tượng khác
 
+Từ khóa ```this``` không cố định mà phụ thuộc vào ngữ cảnh gọi hàm
+* Trong một phương thức đối tượng, ```this``` tham chiếu tới chính đối tượng đó
+* Khi khai báo 1 mình, ```this``` tham chiếu tới đối tượng toàn cục
+* Trong một hàm, ```this``` tham chiếu tới đối tượng toàn cục (non-strict) và undefined (strict)
+* Trong một sự kiện, ```this``` tham chiếu tới phần tử được nhận sự kiện
+* Phương thức ```call(), apply(), và bind()``` có thể thay đổi tham chiếu của this tới bất kì đối tượng nào.
 #### 1.2.2 Go
 ##### a) Quản lý phụ thuộc trong Go
 
