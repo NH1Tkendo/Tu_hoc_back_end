@@ -1239,7 +1239,116 @@ console.log(odds(0), odds(1), odds(99));
 
 ```defineSequence``` tạo ra một hàm nhận 2 đối số ```a``` và ```d``` và sau đó trả về một hàm chỉ nhận 1 đối số ```n```. Hàm trả về này nhớ lexical enviroment của nó.
 
-##### s) DOM APIS
+##### s) DOM APIs
+kết nối các trang web với các đoạn script hoặc ngôn ngữ lập trình bằng cách biểu diễn cấu trúc của tài liệu — chẳng hạn như mã HTML của một trang web — trong bộ nhớ.
+
+DOM đại diện cho một tài liệu với một cây logic. Mỗi nhánh trên cây kết thúc bằng một nút(node), và mỗi nút chứa các đối tượng. Các phương thức DOM cho phép truy cập vào cây logic. Với chúng, bạn có thể thay đổi cấu trúc của tài liệu, phong cách hoặc nội dung
+
+Các nút còn có các bộ xử lý sự kiện được đi kèm theo chúng. Mỗi khi một sự kiện được kích hoạt, bộ xử lý sự kiện được thực thi
+
+##### t) Strict Mode
+Strict mode trong JavaScript là một cách để chuyển sang phiên bản bị giới hạn nghiêm ngặt hơn của JavaScript, qua đó ngầm từ chối chế độ "lỏng lẻo" (sloppy mode).
+
+Strict mode không chỉ đơn giản là một phần nhỏ của JavaScript: nó cố tình thay đổi một số quy tắc hoạt động so với mã thông thường.
+Mã sử dụng strict mode và mã không sử dụng strict mode có thể cùng tồn tại, nên bạn có thể áp dụng strict mode từng phần trong project của mình.
+
+Strict mode tạo ra vài thay đổi như:
+1. Loại bỏ một số lỗi thầm lặng của JavaScript bằng cách chuyển chúng thành lỗi thực sự (gây lỗi).
+2. Khắc phục các sai sót khiến các JavaScript engine khó tối ưu hóa hiệu suất: mã chạy ở strict mode đôi khi có thể được thực thi nhanh hơn so với mã giống hệt nhưng không dùng strict mode.
+3. Cấm sử dụng một số cú pháp có khả năng sẽ được định nghĩa trong các phiên bản ECMAScript tương lai.
+
+**Kích hoạt strict mode cho toàn bộ đoạn mã**: Đặt lệnh ```"use strict";``` (hoặc ```'use strict';```) trước bất kỳ câu lệnh nào.
+
+**Kích hoạt strict mode cho một hàm bất kỳ**: Đặt lệnh ```"use strict";``` (hoặc ```'use strict';```) ngay dòng đầu tiên sau khi khai báo hàm. Ví dụ:
+```
+function myStrictFunction() {
+  // Function-level strict mode syntax
+  "use strict";
+  function nested() {
+    return "And so am I!";
+  }
+  return `Hi! I'm a strict mode function! ${nested()}`;
+}
+function myNotStrictFunction() {
+  return "I'm not strict.";
+}
+```
+Lưu ý: 
+1. ```"use strict"``` không thể dùng cho hàm có tham số rest, default hoặc destructured
+2. JS modules và class tự động kích hoạt strict mode
+
+**Thay đổi trong strict mode**
+
+Strict mode thay đổi cả cú pháp và hành vi lúc chạy. Các thay đổi được phân loại như sau
+* Thay đổi các lỗi tiềm ẩn thành lỗi thật sự
+* Đơn giản hóa cách tham chiếu biến
+* Đơn giản hóa việc sử dụng ```eval``` và ```arguments```
+* Giúp việc viết JS bảo mật hơn
+* Chuẩn bị cho sự phát triển của ECMAScript trong tương lai
+
+1. Thay đổi các lỗi tiềm ẩn thành lỗi thật sự
+* Gán giá trị cho một biến chưa được khai báo
+* Gán giá trị không thành công cho các thuộc tính đối tượng
+  Có 3 cách để xảy ra trường hợp này, gán cho thuộc tính dữ liệu không ghi đè được, gán cho thuộc tính chỉ có hàm truy cập getter. Gán cho thuộc tính mới hoặc cho một đối tượng không mở rộng được
+
+Ví dụ, NaN là biến toàn cục không thể ghi đề được. Trong chế độ "lỏng lẻo", gán giá trị cho NaN không làm gì hết. Trong strict mode, gán giá trị cho NaN ném về ngoại lệ.
+```
+"use strict";
+
+// Assignment to a non-writable global
+undefined = 5; // TypeError
+Infinity = 5; // TypeError
+
+// Assignment to a non-writable property
+const obj1 = {};
+Object.defineProperty(obj1, "x", { value: 42, writable: false });
+obj1.x = 9; // TypeError
+
+// Assignment to a getter-only property
+const obj2 = {
+  get x() {
+    return 17;
+  },
+};
+obj2.x = 5; // TypeError
+
+// Assignment to a new property on a non-extensible object
+const fixed = {};
+Object.preventExtensions(fixed);
+fixed.newProp = "ohai"; // TypeError
+```
+
+* Xóa các thuộc tính của đối tượng không thành công
+* Tên tham chiếu trùng nhau
+* Thêm các thuộc tính vào giá trị nguyên thủy
+* Tên thuộc tính trùng lặp
+2. Đơn giản hóa quản lý scope
+  Strict mode làm đơn giản hóa cách mà tên biến được ánh xạ (map) tới định nghĩa biến cụ thể trong mã nguồn. Rất nhiều kỹ thuật tối ưu hóa của trình biên dịch (compiler optimizations) phụ thuộc vào khả năng xác định rằng: “Biến X được lưu ở đúng vị trí Y trong bộ nhớ”. Nhưng JavaScript đôi khi khiến việc ánh xạ đơn giản này trở nên không thể thực hiện được cho đến khi chương trình chạy (runtime). Strict mode loại bỏ phần lớn những trường hợp như vậy, từ đó giúp trình biên dịch tối ưu hóa mã tốt hơn.
+* Cấm từ khóa ```with```
+* Cho khai báo hàm trong Block-scoped (Không nên dùng)
+3. Làm cho eval và arguments đơn giản hơn
+* Ngăn cản gán giá trị mới hoặc khai báo lại 2 từ khóa eval và arguments
+* Không đồng bộ giữa tham số và arguments
+  ```
+  function f(a) {
+	 "use strict";
+	 a = 42;
+	 return [a, arguments[0]];
+  }
+  const pair = f(17);
+  console.assert(pair[0] === 42);
+  console.assert(pair[1] === 17);
+  ```
+4. Giúp viết mã JS bảo mật hơn
+* this không bị thay thế tự động
+  Nếu ```this``` không tồn tại thì trả về ```undefined``` tha vì ```globalThis```
+* Cấm truy cập hoặc thao tác với call stack
+5. Ngăn các lỗi xảy ra trong tương lai
+
+Thêm các định danh không thể được sử dụng để làm tên biến. Strict mode có nhiều từ khóa hơn sloppy mode.
+
+##### u) Từ khóa ```this```
+
 #### 1.2.2 Go
 ##### a) Quản lý phụ thuộc trong Go
 
