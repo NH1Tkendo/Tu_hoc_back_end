@@ -1358,6 +1358,9 @@ Từ khóa ```this``` không cố định mà phụ thuộc vào ngữ cảnh g�
 * Phương thức ```call(), apply(), và bind()``` có thể thay đổi tham chiếu của this tới bất kì đối tượng nào.
 * Hàm mũi tên không có this riêng, chúng kế thừa this từ scope lớn hơn ngay tại thời điểm chúng được định nghĩa
 
+**Hàm mũi tên**: ```this``` giữ lại giá trị của ngữ cảnh ```this``` gần nhất. Hay nói cách khác, Khi tạo phần thân của hàm mũi tên, không có ```this``` mới nào được tạo ra.
+
+**Hàm khởi tạo**: Khi một hàm được dùng như hàm khởi tạo, ```this``` của nó được gắn với đối tượng mởi được khởi tạo. Giá trị của ```this``` trả thành giá trị của biểu thức ```new``` trừ khi hàm khởi tạo trả về giá trị khác.
 #### 1.2.2 Go
 ##### a) Quản lý phụ thuộc trong Go
 
