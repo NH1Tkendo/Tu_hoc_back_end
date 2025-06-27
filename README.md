@@ -1361,6 +1361,49 @@ Từ khóa ```this``` không cố định mà phụ thuộc vào ngữ cảnh g�
 **Hàm mũi tên**: ```this``` giữ lại giá trị của ngữ cảnh ```this``` gần nhất. Hay nói cách khác, Khi tạo phần thân của hàm mũi tên, không có ```this``` mới nào được tạo ra.
 
 **Hàm khởi tạo**: Khi một hàm được dùng như hàm khởi tạo, ```this``` của nó được gắn với đối tượng mởi được khởi tạo. Giá trị của ```this``` trả thành giá trị của biểu thức ```new``` trừ khi hàm khởi tạo trả về giá trị khác.
+
+**Class context**: Có thể được chia làm 2 ngữ cảnh: ngữ cảnh tĩnh và ngữ cảnh thể hiện. Các hàm khởi tạo, phương thức và trường dữ liệu của thể hiện (public hay private) đều thuộc về ngữ cảnh thể hiện. Các phương thức tĩnh,  thuộc tính tĩnh và khối khởi tạo tĩnh thuộc về ngữ cảnh tĩnh. Giá trị của ```this``` khác nhau ở mỗi ngữ cảnh
+
+| **Thành phần**                          | **`this` là gì?**                          |
+|----------------------------------------|--------------------------------------------|
+| **Constructor**                        | Instance mới (`new Class()`)              |
+| **Method thường**                      | Đối tượng gọi method (thường là instance) |
+| **Static method**                      | Class gọi (ví dụ: `ClassName`)            |
+| **Static initialization block**        | Class hiện tại                             |
+| **Instance field initializer**         | Instance đang được tạo                    |
+| **Static field initializer**           | Class hiện tại                             |
+| **Arrow function trong instance field**| Gắn `this` với instance                   |
+| **Arrow function trong static field**  | Gắn `this` với class                      |
+
+Ví dụ:
+```
+class Example {
+  static staticField = () => console.log("Static this:", this);
+  instanceField = () => console.log("Instance this:", this);
+
+  constructor() {
+    console.log("Constructor this:", this);
+  }
+
+  method() {
+    console.log("Method this:", this);
+  }
+
+  static staticMethod() {
+    console.log("Static Method this:", this);
+  }
+
+  static {
+    console.log("Static block this:", this);
+  }
+}
+
+const e = new Example();
+e.method();               // this -> instance
+Example.staticMethod();   // this -> class
+e.instanceField();        // this -> instance
+Example.staticField();    // this -> class
+```
 #### 1.2.2 Go
 ##### a) Quản lý phụ thuộc trong Go
 
