@@ -1404,6 +1404,13 @@ Example.staticMethod();   // this -> class
 e.instanceField();        // this -> instance
 Example.staticField();    // this -> class
 ```
+**Derived class constructors** (Các constructor thuộc về subclass) không có ràng buộc this. Sử dụng ```super()``` tạo ra một ràng buộc ```this``` tới hàm khởi tạo và có tác dụng như dòng mã sau.
+
+```this = new Base();```
+
+Derived classes không được trả về giá trị trước khi gọi ```super()```, trừ khi hàm khởi tạo trả về một đối tượng (ghi đè ```this```) hoặc lớp đó không có hàm khởi tạo
+
+**Ngữ cảnh toàn cục**: trong ngữ cảnh thực thi toàn cục, giá trị của ```this``` tùy thuộc vào ngữ cảnh thực thi của đoạn mã. Ví dụ, trong callbacks thì giá trị của ```this``` được định nghĩa bởi môi trường thực thi.
 #### 1.2.2 Go
 ##### a) Quản lý phụ thuộc trong Go
 
