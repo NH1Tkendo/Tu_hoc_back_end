@@ -1411,6 +1411,13 @@ Example.staticField();    // this -> class
 Derived classes không được trả về giá trị trước khi gọi ```super()```, trừ khi hàm khởi tạo trả về một đối tượng (ghi đè ```this```) hoặc lớp đó không có hàm khởi tạo
 
 **Ngữ cảnh toàn cục**: trong ngữ cảnh thực thi toàn cục, giá trị của ```this``` tùy thuộc vào ngữ cảnh thực thi của đoạn mã. Ví dụ, trong callbacks thì giá trị của ```this``` được định nghĩa bởi môi trường thực thi.
+
+2. Vay mượn hàm
+   Cho phép dùng phương thức của một đối tượng cho một đối tượng khác mà không phải tạo một bản sao chép của phương thức đó và duy trì nó ở 2 nơi khác nhau. Vay mượn hàm được thực hiện bằng việc sử dụng ```.call()```, ```.apply()``` hoặc ```.bind()```.
+
+**Khi nào nên vay mượn hàm?**:
+* Khi cần dùng logic có sẵn từ đối tượng khác
+* Khi muốn tái sử dụng hàm từ object khác mà không cần kế thừa
 #### 1.2.2 Go
 ##### a) Quản lý phụ thuộc trong Go
 
