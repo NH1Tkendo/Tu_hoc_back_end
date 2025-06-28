@@ -1418,6 +1418,8 @@ Derived classes không được trả về giá trị trước khi gọi ```supe
 **Khi nào nên vay mượn hàm?**:
 * Khi cần dùng logic có sẵn từ đối tượng khác
 * Khi muốn tái sử dụng hàm từ object khác mà không cần kế thừa
+
+**Ràng buộc rõ ràng** : Là khi bạn dùng phương thức ```call``` hoặc ```apply``` để ràng buộc giá trị của ```this``` trong một hàm
 #### 1.2.2 Go
 ##### a) Quản lý phụ thuộc trong Go
 
