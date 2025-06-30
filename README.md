@@ -1420,6 +1420,12 @@ Derived classes không được trả về giá trị trước khi gọi ```supe
 * Khi muốn tái sử dụng hàm từ object khác mà không cần kế thừa
 
 **Ràng buộc rõ ràng** : Là khi bạn dùng phương thức ```call``` hoặc ```apply``` để ràng buộc giá trị của ```this``` trong một hàm
+
+_call()_ : Truyền vào đối tượng là tham số thứ nhất, tham số thực sự được truyền sau đối tượng
+
+_apply()_: Tương tự như call() nhưng mà có một chút khác biệt về đối số thực sự được truyền vào, tham số thực sự được truyền như một array.
+
+_bind()_: Phương thức này tạo một hàm mới với this cố định. Loại hàm này được tạo sử dụng bind() và thường được biết tới là **bound functions**
 #### 1.2.2 Go
 ##### a) Quản lý phụ thuộc trong Go
 
