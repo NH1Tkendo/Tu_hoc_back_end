@@ -1426,6 +1426,14 @@ _call()_ : Truyền vào đối tượng là tham số thứ nhất, tham số t
 _apply()_: Tương tự như call() nhưng mà có một chút khác biệt về đối số thực sự được truyền vào, tham số thực sự được truyền như một array.
 
 _bind()_: Phương thức này tạo một hàm mới với this cố định. Loại hàm này được tạo sử dụng bind() và thường được biết tới là **bound functions**
+
+##### v) Lập trình bất đồng bộ
+Là kỹ thuật cho phép chạy một tác vụ tốn nhiều thời gian nhưng vẫn sẵn sàng để phản hồi các sự kiện khác hơn là phải chờ tới khi tác vụ đó được hoàn thành. 
+
+Ví dụ:
+* Tạo một yêu cầu HTTP sử dụng ```fetch()```
+* Truy cập vào camera hoặc microphone của người dùng sử dụng ```getUserMedia()```
+* Yêu cầu người dùng chọn file sử dụng ```showOpenFilePicker()```
 #### 1.2.2 Go
 ##### a) Quản lý phụ thuộc trong Go
 
