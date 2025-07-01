@@ -1,0 +1,147 @@
+// 'use strict'
+// var a = 1;
+// function f(a, b = () => console.log(a)) {
+  
+//   b();
+// }
+
+// f(); // undefined
+// f(5); // 5
+//=================================
+// function test(num = 1) {
+//     console.log(typeof num);
+// }
+
+// test(); // 'number' (num is set to 1)
+// test(undefined); // 'number' (num is set to 1 too)
+
+// // test with other falsy values:
+// test(""); // 'string' (num is set to '')
+// test(null); // 'object' (num is set to null)
+//===============================
+// function greet(name, greeting, message = `${greeting} ${name}`) {
+//     return [name, greeting, message];
+// }
+
+// greet("David", "Hi"); // ["David", "Hi", "Hi David"]
+// greet("David", "Hi", "Happy Birthday!"); // ["David", "Hi", "Happy Birthday!"]
+//===============================
+// function greet(name, greeting, message = `${greeting} ${name}`) {
+//     return [name, greeting, message];
+// }
+
+// greet("David", "Hi"); // ["David", "Hi", "Hi David"]
+// greet("David", "Hi", "Happy Birthday!"); // ["David", "Hi", "Happy Birthday!"]
+  
+//=================Hàm mũi tên=====================
+// An empty arrow function returns undefined
+// const empty = () => { };
+
+// (() => "foobar")();
+// // Returns "foobar"
+// // (this is an Immediately Invoked Function Expression)
+
+// const simple = (a) => (a > 15 ? 15 : a);
+// simple(16); // 15
+// simple(10); // 10
+
+// const max = (a, b) => (a > b ? a : b);
+
+// // Easy array filtering, mapping, etc.
+// const arr = [5, 6, 13, 0, 1, 18, 23];
+
+// const sum = arr.reduce((a, b) => a + b);
+// // 66
+
+// const even = arr.filter((v) => v % 2 === 0);
+// // [6, 0, 18]
+
+// const double = arr.map((v) => v * 2);
+// // [10, 12, 26, 0, 2, 36, 46]
+
+// // More concise promise chains
+// promise
+//     .then((a) => {
+//         // …
+//     })
+//     .then((b) => {
+//         // …
+//     });
+
+// // Arrow functions without parameters
+// setTimeout(() => {
+//     console.log("I happen sooner");
+//     setTimeout(() => {
+//         // deeper code
+//         console.log("I happen later");
+//     }, 1);
+// }, 1);
+//==============Argument Object===================
+// function func1(a, b, c) {
+//   console.log(arguments[0]);
+//   // Expected output: 1
+
+//   console.log(arguments[1]);
+//   // Expected output: 2
+
+//   console.log(arguments[2]);
+//   // Expected output: 3
+// }
+
+// func1(1, 2, 3);
+//=================================================
+// function myConCat(seperator){
+//   const args = Array.prototype.slice.call(seperator,1)
+//   return args.join(seperator);
+// }
+//===================Test closure & lexical enviroments=============
+// var a = 'static';
+
+// function f1() {
+//     console.log(a);
+// }
+
+// function f2() {
+//     var a = 'dynamic';
+//     f1();
+// }
+
+// // f2();
+// console.dir(f1);
+//====================================================================
+var a = 'easy';
+
+(function () {
+    var b = 'easy';
+
+    function f1() {
+        console.log(a, b);
+    }
+
+    function f2() {
+        var a = 'difficult';
+        var b = 'difficult';
+        f1();
+    }
+
+    f2();
+})();
+//Console: easy easy
+//Cách hàm này hoạt động
+/*
+B1: Một biến a với phạm vi toàn cục được khởi tạo và giá trị 'easy', sau đó tạo và thực thi một hàm IIFE
+B2: Một môi trường cục bộ được tạo ra bởi IIFE này. Biến b được khởi tạo và gán giá trị 'easy'. Tiếp theo, 2 hàm
+f1 và f2 được tạo ra
+B3: Lưu lexical enviroment của hàm đó vào trong thuộc tính nội bộ [[Scopes]]. Điều này xảy ra trước khi hàm được gọi
+B4: Gọi hàm f2
+B5: Một môi trường cục bộ được tạo cho f2. Ở đây, 2 biến a và b được tạo và gán giá trị difficult
+B6: Hàm f1 được gọi
+B7: Một môi trường cục bộ được tạo cho f1. Thực thi dòng lệnh console.log(a, b). Trước khi câu lệnh này được thực thi
+thì biến a và b phải được xử lý
+B8: Xử lý biến a đầu tiên, môi trường cục bộ của f1 tìm kiếm biến a, không tìm thấy nên bắt đầu chuyển sang lexical enviroment
+Tìm kiếm bắt đầu chuyển sang môi trường bao bọc hàm f1(IIFE) để tìm a, không tìm thấy gì nên chuyển sang môi trường bao bọc IIFE (Môi trường toàn cục)
+Đã tìm thấy a và giá trị của nó nên a = easy.
+B9: Tương tự với b
+B10: Cả a và b đều đã được xử lý, câu lệnh console.log được thực thi, sau đó là hàm f1->f2->toàn bộ chương trình.
+*/
+
