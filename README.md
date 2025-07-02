@@ -55,6 +55,15 @@ Note:
 * Nên kết thúc các dòng lệnh bằng dấu ```;```
 * Luôn luôn sử dụng từ khóa ```let``` để khai báo biến
 * Khi khai báo một biến thì javascript sẽ tạo chỗ cho nó trong bộ nhớ mặc dù chưa thực thi chương trình, sau đó để 1 placeholder cho biến đó với nội dung là undefined
+* Là một ngôn ngữ đơn luồng, không chặn, bất đồng và có khả năng thực thi đồng thời.
+* V8 không chứa mã nguồn cho các thứ liên quan tới bất đồng bộ
+![JS Runtime](md_assets/JavaRuntimeModel.png)
+
+Heap: Nơi quá trình cấp phát bộ nhớ diễn 
+
+Call stack: nơi chứa ngữ cảnh thực 
+
+
 ##### a) Quản lý phụ thuộc trong JavaScript
 
 Được quản lý bởi file package.json sử dụng NPM (Node Package Manager) bằng lệnh ```npm init```
@@ -1428,13 +1437,34 @@ _apply()_: Tương tự như call() nhưng mà có một chút khác biệt về
 _bind()_: Phương thức này tạo một hàm mới với this cố định. Loại hàm này được tạo sử dụng bind() và thường được biết tới là **bound functions**
 
 ##### v) Lập trình bất đồng bộ
+Tài nguyên: [Xem cái này đầu tiên](https://www.youtube.com/watch?v=8aGhZQkoFbQ) [Rồi tới cái này](https://www.youtube.com/watch?v=eiC58R16hb8)
+
 Là kỹ thuật cho phép chạy một tác vụ tốn nhiều thời gian nhưng vẫn sẵn sàng để phản hồi các sự kiện khác hơn là phải chờ tới khi tác vụ đó được hoàn thành. 
 
 Ví dụ:
 * Tạo một yêu cầu HTTP sử dụng ```fetch()```
 * Truy cập vào camera hoặc microphone của người dùng sử dụng ```getUserMedia()```
 * Yêu cầu người dùng chọn file sử dụng ```showOpenFilePicker()```
+
+![Runtime JS](md_assets/Model.png)
+
+Call stack: Đơn luồng == chỉ có 1 call stack == xử lý một thứ duy nhất tại một thời điểm. Là một cấu trúc dữ liệu ghi lại vị trí hiện tại của môi trường thực thi.
+
+Web/NodeJS API: Nơi thực hiện các phương thức bất đồng bộ, tác vụ nào xong trước sẽ được đẩy vào Task Queue trước
+
+Task Queue là hàng đợi chứa các callback (task) được Web API đưa vào sau khi hoàn thành tác vụ bất đồng bộ, chờ Event Loop đẩy vào Call Stack để thực thi.
+
+![Runtime JS](md_assets/Task.png)
+
+Microtask Queue
+
+![Runtime JS](md_assets/Task.png)
+Lưu ý: Call Stack phải trống thì Event Loop mới có thể đẩy các task vào 
 #### 1.2.2 Go
+
+Blocking khiến chương trình bị chậm đi 
+
+Các hàm bất đồng bộ như setTimeOut không thuộc V8 engine mà thuộc Web API hoặc NodeJS API. 
 ##### a) Quản lý phụ thuộc trong Go
 
 Được quản lý bởi file ```go.mod``` sử dụng lênh ```go mod init <tên_module>```, tên_module ở đây là đường dẫn của module
