@@ -1611,9 +1611,24 @@ new Promise(function(resolve, reject) {
 });
 ```
 
-Hàm executor: Được thực thi ngay lập tức sau khi hàm Promise được tạo ra. Có nghĩa là nếu có một hàm cần nhiều thời gian để chạy thì nó sẽ 
+Hàm executor: Được thực thi ngay lập tức sau khi hàm Promise được tạo ra. Có nghĩa là nếu có một hàm cần nhiều thời gian để chạy thì nó sẽ ngăn trang web chạy cho tới khi hàm đó chạy xong
+
+Lưu ý: Khi Promise không có tham số hoặc tham số không phải là hàm thì sẽ báo 
+
 _Async/Await_: là các cú pháp đặc biệt để làm việc với promises. ```async``` để khai báo một hàm trả về Promise và ```await``` làm cho hàm đó chờ một 
 
+_Cách then() hoạt động_: Một promise có thể ở trạng thái settled hoặc unsettled khi ```then()``` được gọi. Vậy Promise sẽ giải quyết ra sao khi các trạng thái này xảy ra ?
+
+1. Unsettle promise
+
+Nếu trường hợp này xảy ra thì cách duy nhất là lưu trữ hàm callback bên trong promise và chạy nó khi promise được settled (gọi ```resolve()``` hoặc ```reject()``` trong executor).
+
+Mỗi đối tượng promise đều có 2 callback queue (```successCallbackQueue``` và ```failureCallbackQueue```). Khi gọi ```then()``` mà promise ở trạng thái unsettled thì hàm cb sẽ được đưa vào queue cho tới khi promise ở trạng thái settled.
+* successCallbackQueue chứa các callback được truyền vào .then(onFulfilled)
+* failureCallbackQueue chứa các callback được truyền vào .then(_, onRejected) hoặc .catch()
+2. Settled promise
+   
+Gọi ```then()``` cho trường hợp này giúp hàm được thực thi ngay lập tức
 #### 1.2.2 Go
 ##### a) Quản lý phụ thuộc trong Go
 
