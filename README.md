@@ -1439,6 +1439,8 @@ _bind()_: Phương thức này tạo một hàm mới với this cố định. L
 ##### v) Lập trình bất đồng bộ
 Tài nguyên: [Xem cái này đầu tiên](https://www.youtube.com/watch?v=8aGhZQkoFbQ) [Rồi tới cái này](https://www.youtube.com/watch?v=eiC58R16hb8)
 
+Đọc cái này: [Readme](https://www.lydiahallie.com/blog/event-loop)
+
 Là kỹ thuật cho phép chạy một tác vụ tốn nhiều thời gian nhưng vẫn sẵn sàng để phản hồi các sự kiện khác hơn là phải chờ tới khi tác vụ đó được hoàn thành. 
 
 Ví dụ:
@@ -1448,23 +1450,171 @@ Ví dụ:
 
 ![Runtime JS](md_assets/Model.png)
 
-Call stack: Đơn luồng == chỉ có 1 call stack == xử lý một thứ duy nhất tại một thời điểm. Là một cấu trúc dữ liệu ghi lại vị trí hiện tại của môi trường thực thi.
+Call stack: Đơn luồng == chỉ có 1 call stack == xử lý một thứ duy nhất một task cùng . Là một cấu trúc dữ liệu ghi lại vị trí hiện tại của môi trường thực thi.
 
-Web/NodeJS API: Nơi thực hiện các phương thức bất đồng bộ, tác vụ nào xong trước sẽ được đẩy vào Task Queue trước
+Web/NodeJS API: Nơi tương tác với các tính năng được cung cấp bởi trình duyệt web hoặc NodeJS, một vài API cho phép khởi tạo các tác vụ bất đồng bộ. Quá trình này được thực hiện sau nền nên không gây ảnh hưởng gì.
 
 Task Queue là hàng đợi chứa các callback (task) được Web API đưa vào sau khi hoàn thành tác vụ bất đồng bộ, chờ Event Loop đẩy vào Call Stack để thực thi.
 
 ![Runtime JS](md_assets/Task.png)
 
-Microtask Queue
+Microtask Queue: Các tác vụ sau ```then, catch và finally```, đoạn mã sau await trong hàm async hoặc các tác vụ được bọc trong hàm ```queueMicroTask()``` được gọi là các MicroTask. Các tác vụ trong Microtask Queue có độ ưu tiên cao hơn.
 
-![Runtime JS](md_assets/Task.png)
+![Runtime JS](md_assets/MicroTask.png)
+
+EventLoop: Có nhiệm vụ kiểm tra Call Stack và đẩy các task vào nếu Call Stack 
 Lưu ý: Call Stack phải trống thì Event Loop mới có thể đẩy các task vào 
+
+Ví dụ:
+```
+Promise.resolve()
+    .then(() => console.log(1));
+
+setTimeout(() => console.log(2), 10);
+
+queueMicrotask(() => {
+    console.log(3);
+    queueMicrotask(() => {
+        console.log(4);
+    })
+});
+
+console.log(5);
+```
+
+![Runtime JS](md_assets/Model.png)
+
+Quá trình xử lý:
+* B1: ```Promise.resolve()``` được đưa vào Call Stack và thực thi. Sau đó, ```.then(...)``` được đưa vào Call Stack để thực thi, sau khi thực thi xong thì ```() => console.log(1)``` được đưa vào
+* B2: ```setTimeout(() => console.log(2), 10);``` được đưa vào Web/NodeJS APIs để xử lý và chờ hết timer để được thực thi
+* B3: ```queueMicroTask(...)``` được thực thi và đưa nội dung của nó vào Microtask Queue. Ở bước này, MicroTask từ B1 và B3 vẫn chưa được thực thi.
+* B4: ```console.log(5)``` được thực thi và xuất ra màn hình
+* B5: Quá trình ở bước 2 đã xong và task của nó được đưa vào Task
+* B6: Do Call Stack không còn tác vụ nào được thực thi nũa nên Event Loop chạy các tác vụ trong MicroTask. Tại bước này số 1 và 3 được xuất ra. Do có ```queueMicroTask()``` con nên nó được xử lý và đưa vào MicroTask Queue.
+* B6: Event Loop tiếp tục gọi trong MicroTask Queue và xuất số 4. Do Call Stack trống và MicroTask Queue trống nên Event Loop thực thi task trong TaskQueue và xuất ra số 2
+
+Kết quả:
+```
+5
+1
+3
+4
+2
+```
+
+**```setTimeOut()``` và ```setInterval()```**
+
+Là 2 sự kiện có bộ đếm thuộc đối tượng window nhận 2 tham số là một hàm call và thời gian tối thiểu để hàm được chuyển vào Task Queue.
+
+Khác biệt duy nhất giữa 2 hàm này là một cái chạy liên tục(setInterval()) còn 1 cái thì chạy một lần duy nhất (setTimeOut()).
+
+Lưu ý: Có thể dùng ```clearInterval()``` để dừng ```setInterval()```.
+
+Ví dụ:
+```
+setTimeout(bye, 3000);
+
+function bye(){
+	console.log('goodbye');
+}
+```
+
+**Hàm Callback**
+
+là hàm được truyền vào hàm khác như một đối số, sau đó được triển khai trong hàm đó để hoàn thành một tác vụ bất kỳ.
+
+Có 2 cách mà hàm callback có thể chạy, đồng bộ và bất đồng bộ. Hàm callback đồng bộ được gọi ngay lập tức sau khi được kích hoạt bởi hàm chứa nó. Còn hàm callback bất đồng bộ được gọi ở một thời điểm sau đó, sau khi một tác vụ bất đồng bộ đã được hoàn thành.
+
+_Callback Hell_ : Nhiều hàm Callback lồng nhau dẫn tới việc khó đọc mã nguồn được gọi là Callback Hell.
+
+Ví dụ:
+```
+loadScript('1.js', function(error, script) {
+  if (error) {
+    handleError(error);
+  } else {
+    // ...
+    loadScript('2.js', function(error, script) {
+      if (error) {
+        handleError(error);
+      } else {
+        // ...
+        loadScript('3.js', function(error, script) {
+          if (error) {
+            handleError(error);
+          } else {
+            // ...continue after all scripts are loaded (*)
+          }
+        });
+
+      }
+    });
+  }
+});
+```
+
+**Promises**
+
+Một cách để thực hiện các tác vụ bất đồng bộ tốt hơn callback. Là đối tượng đại diện cho sự thành công hoặc thất bại của 1 tác vụ, thường là một tác vụ bất đồng 
+
+Ưu điểm của Promise:
+* Giảm bớt việc thụt lề trong các đoạn mã
+* Xử lý lỗi chính xác và dễ bảo trì hơn
+* Dùng cú pháp sát với thực tế, như hàm ```then()``` được dùng sau khi hoàn thành tác
+
+Cách tạo ra hàm Promise: Sử dụng hàm khởi tạo ```Promise()``` với đối số là hàm được thực thi. Lưu ý là hàm này phải được bao đóng để ```Promise()``` có thể kiểm soát được thời điểm và cách thức thực thi đoạn mã nằm trong đó. Các hàm này thường được gọi là 
+
+Các trạng thái của Promise:
+* **Pending**: Hàm vẫn đang trong quá trình thực thi
+* **Fulfilled**: Hàm thực thi thành công
+* **Rejected**: Hàm thực thi thất
+
+Lưu ý: Trên trình duyệt web, Promise có biến ```[[PromiseState]], [[PromiseResult]]...``` để phản ánh các trạng thái của nó.
+
+Giá trị của Promise: Kết quả đại diện cho đầu ra của tác vụ mà Promise đang thực thi. Giá trị của Promise được cài bằng cách truyền một đối số cho hàm ```resolve()``` hoặc ```reject()``` trong hàm executor.
+
+```
+var timerPromise = new Promise(function(resolve, reject) {
+   setTimeout(function() {
+      resolve('Hello');
+   }, 3000);
+});
+```
+
+![Promises](md_assets/PromiseResult.png)
+
+Phương thức ```then()```: được sử dụng để thực thi một hàm khi một promise hoàn thành tác vụ. Hàm này nhận 2 tham số là một hàm để gọi khi tác vụ thành công còn 1 hàm là gọi khi bị từ chối.
+
+```promise.then(onFulfilled, onRejected)```
+
+Ví dụ:
+```
+var timerPromise = new Promise(function(resolve, reject) {
+   setTimeout(function() {
+      resolve('Hello');
+   }, 3000);
+});
+
+timerPromise.then(function(value) {
+   console.log(value);//Hello
+});
+```
+Hoặc có thể viết như sau:
+```
+new Promise(function(resolve, reject) {
+   setTimeout(function() {
+      resolve('Hello');
+   }, 3000);
+})
+.then(function(value) {
+   console.log(value);
+});
+```
+
+Hàm executor: Được thực thi ngay lập tức sau khi hàm Promise được tạo ra. Có nghĩa là nếu có một hàm cần nhiều thời gian để chạy thì nó sẽ 
+_Async/Await_: là các cú pháp đặc biệt để làm việc với promises. ```async``` để khai báo một hàm trả về Promise và ```await``` làm cho hàm đó chờ một 
+
 #### 1.2.2 Go
-
-Blocking khiến chương trình bị chậm đi 
-
-Các hàm bất đồng bộ như setTimeOut không thuộc V8 engine mà thuộc Web API hoặc NodeJS API. 
 ##### a) Quản lý phụ thuộc trong Go
 
 Được quản lý bởi file ```go.mod``` sử dụng lênh ```go mod init <tên_module>```, tên_module ở đây là đường dẫn của module
