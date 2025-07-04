@@ -1629,6 +1629,21 @@ Mỗi đối tượng promise đều có 2 callback queue (```successCallbackQue
 2. Settled promise
    
 Gọi ```then()``` cho trường hợp này giúp hàm được thực thi ngay lập tức
+
+_Chaining_ : gọi ```.then()``` trên chính promise được trả về từ một lần gọi ```.then()``` trước 
+
+```.then()``` luôn trả về một promise mới, promise này gọi là derived 
+
+_Quản lý ngoại lệ_ Khi một hàm khởi tạo ```Promise()``` được thực thi, nó bọc executor của nó trong một khối ```try``` ngay lập túc
+
+Ví dụ:
+```
+function Promise(executor) {
+    // invoke the executor function
+    try { executor(); }
+    catch(e) { reject(e); }
+}
+```
 #### 1.2.2 Go
 ##### a) Quản lý phụ thuộc trong Go
 
