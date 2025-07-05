@@ -1662,7 +1662,61 @@ Khi được tạo thì trong bộ nhớ sẽ tạo ra đối tượng Promise v
 
 Lưu ý: then tạo ra một promise object khác khi 
 
-_Async/Await_: là các cú pháp đặc biệt để làm việc với promises. ```async``` để khai báo một hàm trả về Promise và ```await``` làm cho hàm đó chờ một 
+_Async/Await_: là các cú pháp đặc biệt để làm việc với promises. ```async``` để khai báo một hàm trả về Promise và ```await``` làm cho hàm đó chờ một Promise hoàn thành và trả về kết quả của nó(```successCallbackQueue``` và ```failureCallbackQueue```). Khi gọi ```then()``` mà promise ở trạng thái unsettled thì hàm cb sẽ được đưa vào queue cho tới khi promise ở trạng thái settled.
+* successCallbackQueue chứa các callback được truyền vào .then(onFulfilled)
+* failureCallbackQueue chứa các callback được truyền vào .then(_, onRejected) hoặc .catch()
+2. Settled promise
+   
+Gọi ```then()``` cho trường hợp này giúp hàm được thực thi ngay lập tức
+
+_Chaining_ : gọi ```.then()``` trên chính promise được trả về từ một lần gọi ```.then()``` trước 
+
+```.then()``` luôn trả về một promise mới, promise này gọi là derived 
+
+_Quản lý ngoại lệ_ Khi một hàm khởi tạo ```Promise()``` được thực thi, nó bọc executor của nó trong một khối ```try``` ngay lập túc
+
+Ví dụ:
+```
+function Promise(executor) {
+    // invoke the executor function
+    try { executor(); }
+    catch(e) { reject(e); }
+}
+```
+Tổng kết:
+[Xem cái này đi](https://www.youtube.com/watch?v=Xs1EMmBLpn4)
+
+![Promise](md_assets/Promise.png)
+
+Hàm khởi tạo promise:
+```
+new Promise((resolve, reject) => {
+	//Executor
+})
+```
+
+Khi được tạo thì trong bộ nhớ sẽ tạo ra đối tượng Promise với các thuộc tính nội bộ như ```[[PromiseState]], [[PromiseResult]], [[PromiseFulfillReactions]], [[PromiseRejectReactions]] và [[PromiseIsHandled]]```
+* Hàm ```resolve(...)``` khi được thực hiện thì đặt ```[[PromiseState]]``` thành ```fulfilled``` và ```[[PromiseResult]]``` thành nội dung của hàm
+* Hàm ```reject(...)``` khi được thực hiện thì đặt ```[[PromiseState]]``` thành ```rejected``` và ```[[PromiseResult]]``` thành nội dung của hàm
+
+```.then()``` nhận 2 đối số để tương tác với ```[[PromiseFulfillReactions]] và [[PromiseRejectReactions]]```. Then sẽ đưa các task vào vào 2 thuộc tính này.
+
+Lưu ý: then tạo ra một promise object khác khi 
+
+_Async/Await_: là các cú pháp đặc biệt để làm việc với promises. ```async``` để khai báo một hàm trả về Promise và ```await``` làm cho hàm đó chờ một Promise hoàn thành và trả về kết quả của nó
+
+Ví dụ về :
+```
+async function f() {
+  return 1;
+}
+
+async function f() {
+  return Promise.resolve(1);//Như nhau
+}
+
+f().then(alert); // 1
+```
 #### 1.2.2 Go
 ##### a) Quản lý phụ thuộc trong Go
 
